@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KubeShift Dynamics: The Kubernetes Optimization Frontier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate Blue & Warm Gray -->
+    <!-- Application Structure Plan: The SPA is designed as a scrolling narrative, guiding an investor through the pitch deck logic. It starts with the massive market opportunity, defines the core problem (the GitOps conflict, now framed with FinOps), presents an interactive competitive landscape to reveal the market gap, introduces our solution (emphasizing FinOps through GitOps), and concludes with the tangible ROI and value proposition. User flow: Hero -> Market Problem -> Competitive Gap -> Our Solution -> ROI -> Contact. Navigation is provided. -->
+    <!-- Visualization & Content Choices: 1. Market Growth: Line chart (Chart.js). Goal: Inform/Impress. Interaction: Hover. 2. Competitive Landscape: Interactive card filter (HTML/JS/Tailwind). Goal: Compare/Reveal Gap. Interaction: Filters update cards & summary, highlighting the FinOps/GitOps disconnect. 3. Solution Flow: Static diagram (HTML/Tailwind). Goal: Organize/Explain. 4. ROI Stats: Stat cards (HTML/Tailwind). Goal: Persuade. This avoids SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #4f46e5; /* indigo-600 */
+            border-bottom-color: #4f46e5;
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .filter-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .competitor-card {
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #e2e8f0; /* slate-200 */
+        }
+        .competitor-card.dimmed {
+            opacity: 0.3;
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-2xl font-bold text-slate-800">KubeShift<span class="text-indigo-600">Dynamics</span></a>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#market" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">The Market</a>
+                        <a href="#problem" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">The Gap</a>
+                        <a href="#solution" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Our Solution</a>
+                        <a href="#impact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">The Impact</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="pt-24 md:pt-32 pb-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900">
+                    Unlock True Cloud Value.
+                </h1>
+                <h2 class="mt-3 text-4xl md:text-6xl font-extrabold tracking-tight">
+                    <span class="text-indigo-600">Harmonize FinOps & GitOps for Kubernetes.</span>
+                </h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">
+                    KubeShift Dynamics is the first platform to bridge deep, predictive optimization with seamless, automated integration into your GitOps workflows, empowering your FinOps goals without operational friction.
+                </p>
+            </div>
+        </section>
+
+        <section id="market" class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">An Exploding Market, A Growing FinOps Challenge</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                        The enterprise shift to Kubernetes is undeniable. While FinOps practices aim to control cloud spend, Kubernetes complexity often leads to significant waste, undermining these efforts. This is a multi-billion dollar problem waiting for a true solution.
+                    </p>
+                </div>
+                <div class="mt-12">
+                    <div class="chart-container">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <p class="text-center mt-4 text-sm text-slate-500">Projected Kubernetes Market Growth (USD Billions)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">The FinOps-GitOps Disconnect</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Why Current Tools Fail Your FinOps Goals & GitOps Workflows
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Enterprises strive for FinOps efficiency, but existing Kubernetes optimization tools create a critical conflict. They either offer insights that demand manual GitOps implementation or automate in ways that break your Git-centric operations, leading to drift and wasted effort.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <div class="flex justify-center space-x-2 md:space-x-4 mb-8">
+                        <button class="filter-btn active py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="all">All Tools</button>
+                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="visibility">Visibility-First (FinOps Data, GitOps Burden)</button>
+                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="automation">Automation-First (FinOps Action, GitOps Conflict)</button>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg mb-8 max-w-4xl mx-auto">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                             <span class="text-2xl">💡</span>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-lg font-medium text-indigo-800">The Critical Gap</h3>
+                            <div id="takeaway-text" class="mt-2 text-md text-indigo-700">
+                               <p>The market lacks a solution that intelligently achieves FinOps objectives *through* GitOps best practices. Visibility tools provide data but leave the GitOps implementation to you. Automation tools act on FinOps goals but often bypass Git, causing operational chaos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="competitors-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Competitor cards will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+        
+        <section id="solution" class="py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">KubeShift Dynamics: FinOps Achieved via GitOps</h2>
+                     <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                        We don't just find savings; we integrate them into your workflow. KubeShift Dynamics introduces a seamless, automated feedback loop that respects Git as your single source of truth, enabling true FinOps success without disrupting your GitOps foundation.
+                    </p>
+                </div>
+                <div class="mt-12 space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                    <div class="relative text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">1</div>
+                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Intelligent FinOps Analysis</h3>
+                        <p class="mt-2 text-base text-gray-600">Our AI engine profiles workloads and forecasts future capacity needs, identifying deep optimization opportunities aligned with your FinOps goals.</p>
+                    </div>
+                    <div class="relative text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">2</div>
+                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">GitOps-Native Translation</h3>
+                        <p class="mt-2 text-base text-gray-600">FinOps recommendations are automatically translated into specific, context-aware IaC changes for Helm, Kustomize, or Terraform.</p>
+                    </div>
+                    <div class="relative text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">3</div>
+                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Automated GitOps PR</h3>
+                        <p class="mt-2 text-base text-gray-600">A Pull Request is generated in your Git repo, applying FinOps-driven changes through your established GitOps pipeline. Your team reviews and merges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="py-16 md:py-24 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">The Impact: Realizing FinOps Goals with GitOps Integrity</h2>
+                     <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                       By harmonizing FinOps objectives with GitOps practices, our platform delivers significant financial savings and engineering efficiency. We empower enterprises to maximize Kubernetes cost-efficiency without compromising operational control.
+                    </p>
+                </div>
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+                    <div class="bg-slate-100 p-8 rounded-lg shadow-md">
+                        <p class="text-6xl font-extrabold text-indigo-600">30-45%</p>
+                        <p class="mt-2 text-xl font-medium text-slate-800">Reduction in Kubernetes Infrastructure Costs</p>
+                        <p class="mt-4 text-slate-600">Achieved through deep, FinOps-aligned optimization of resources, all implemented via your GitOps workflows.</p>
+                    </div>
+                    <div class="bg-slate-100 p-8 rounded-lg shadow-md">
+                        <p class="text-6xl font-extrabold text-indigo-600">15-20%</p>
+                        <p class="mt-2 text-xl font-medium text-slate-800">Decrease in Engineering Overhead</p>
+                        <p class="mt-4 text-slate-600">By automating the translation of FinOps insights into GitOps-ready IaC, eliminating manual reconciliation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold tracking-tight">Invest in the Future of Cloud Efficiency.</h2>
+            <p class="mt-4 text-lg text-slate-300">KubeShift Dynamics: Where FinOps strategy meets GitOps execution for Kubernetes.</p>
+            <a href="mailto:invest@kubeshiftdynamics.io" class="mt-8 inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
+                Contact Us
+            </a>
+            <p class="mt-8 text-center text-base text-slate-400">&copy; 2025 KubeShift Dynamics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const marketData = {
+                labels: ['2023', '2024', '2025', '2026', '2027', '2030'],
+                data: [2.7, 3.5, 4.5, 5.8, 7.8, 13.5] 
+            };
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: marketData.labels,
+                    datasets: [{
+                        label: 'Market Size ($B)',
+                        data: marketData.data,
+                        borderColor: '#4f46e5', // indigo-600
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#4f46e5',
+                        pointHoverRadius: 7,
+                        pointHoverBackgroundColor: 'white',
+                        pointHoverBorderColor: '#4f46e5',
+                        pointHoverBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#1e293b', // slate-800
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 6
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e2e8f0' // slate-200
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value + 'B';
+                                },
+                                color: '#64748b' // slate-500
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#64748b' // slate-500
+                            }
+                        }
+                    }
+                }
+            });
+
+            const competitors = [
+                { name: 'Kubecost / OpenCost', type: 'visibility', strength: 'Leading in real-time K8s cost visibility (FinOps data).', weakness: 'GitOps integration is manual. Lacks automated PR creation for applying FinOps-driven changes.' },
+                { name: 'CAST AI', type: 'automation', strength: 'Aggressive automated cost reduction (FinOps action).', weakness: 'Autonomous actions conflict with GitOps, causing drift. No automated PRs to reconcile FinOps changes with Git.' },
+                { name: 'nops (Compute Copilot)', type: 'automation', strength: 'Strong on AWS commitment management (FinOps action).', weakness: 'UI-driven changes cause GitOps drift, requiring manual IaC updates to reflect FinOps optimizations.' },
+                { name: 'StormForge', type: 'visibility', strength: 'ML-driven rightsizing (FinOps data).', weakness: 'YAML export enables GitOps, but automated PRs for FinOps changes are user-implemented.' },
+                { name: 'Cloud Provider Tools', type: 'visibility', strength: 'High-level billing data (basic FinOps data).', weakness: 'Lack granular K8s optimization and no native GitOps change implementation for FinOps insights.' },
+                { name: 'Other Tools (CloudZero, etc.)', type: 'visibility', strength: 'Cloud spend insights (FinOps data).', weakness: 'Generally lack deep K8s analysis tied to automated, GitOps-native implementation of FinOps strategies.' }
+            ];
+
+            const competitorsGrid = document.getElementById('competitors-grid');
+            const takeawayText = document.getElementById('takeaway-text');
+
+            function renderCompetitors(filter = 'all') {
+                competitorsGrid.innerHTML = '';
+                competitors.forEach(c => {
+                    const isVisible = filter === 'all' || c.type === filter;
+                    const card = document.createElement('div');
+                    card.className = `competitor-card bg-white p-6 rounded-lg shadow-sm ${!isVisible && filter !== 'all' ? 'dimmed' : ''}`;
+                    card.innerHTML = `
+                        <h4 class="text-xl font-bold text-slate-800">${c.name}</h4>
+                        <div class="mt-4">
+                            <p class="font-semibold text-emerald-600">Strengths (from a FinOps/GitOps perspective):</p>
+                            <p class="text-slate-600 text-sm">${c.strength}</p>
+                        </div>
+                        <div class="mt-4">
+                            <p class="font-semibold text-amber-600">The FinOps/GitOps Gap:</p>
+                            <p class="text-slate-600 text-sm">${c.weakness}</p>
+                        </div>
+                    `;
+                    competitorsGrid.appendChild(card);
+                });
+            }
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    renderCompetitors(filter);
+
+                    if(filter === 'visibility') {
+                        takeawayText.innerHTML = '<p><strong>Visibility-first tools</strong> provide valuable FinOps data, but they burden your team with manually translating these insights into GitOps-compliant code changes.</p>';
+                    } else if (filter === 'automation') {
+                        takeawayText.innerHTML = '<p><strong>Automation-first tools</strong> act on FinOps goals but often bypass Git, breaking your GitOps workflows and creating configuration drift that needs manual, error-prone reconciliation.</p>';
+                    } else {
+                        takeawayText.innerHTML = '<p>The market lacks a solution that intelligently achieves FinOps objectives *through* GitOps best practices. Visibility tools provide data but leave the GitOps implementation to you. Automation tools act on FinOps goals but often bypass Git, causing operational chaos.</p>';
+                    }
+                });
+            });
+
+            renderCompetitors();
+
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
