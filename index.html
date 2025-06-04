@@ -163,6 +163,11 @@
                 box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
             }
         }
+        
+        .competitor-card.dimmed {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body class="antialiased bg-white text-slate-800">
@@ -391,6 +396,9 @@
                     <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
                         Current Market Players
                     </p>
+                    <p class="mt-4 max-w-2xl text-lg text-slate-600 lg:mx-auto">
+                        The market lacks a solution that effectively bridges the gap between FinOps objectives and GitOps workflows.
+                    </p>
                 </div>
 
                 <div class="mt-10">
@@ -416,58 +424,7 @@
                 </div>
 
                 <div id="competitors-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Competitor cards will be dynamically generated -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-slate-100 p-3 rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-800 ml-3">KubeCost</h3>
-                        </div>
-                        <div class="mt-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                Visibility-First
-                            </span>
-                        </div>
-                        <p class="mt-4 text-slate-600">Strong cost visibility but <span class="key-point">no GitOps integration</span>. Engineers must manually implement recommendations.</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-slate-100 p-3 rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-800 ml-3">Cast.ai</h3>
-                        </div>
-                        <div class="mt-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                Automation-First
-                            </span>
-                        </div>
-                        <p class="mt-4 text-slate-600">Automated cost optimization but <span class="key-point">bypasses GitOps</span>, creating configuration drift and compliance issues.</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-slate-100 p-3 rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-800 ml-3">Kubecost</h3>
-                        </div>
-                        <div class="mt-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                Visibility-First
-                            </span>
-                        </div>
-                        <p class="mt-4 text-slate-600">Detailed cost allocation but <span class="key-point">limited optimization</span> capabilities and no GitOps integration.</p>
-                    </div>
+                    <!-- Competitor cards will be dynamically generated by JavaScript -->
                 </div>
             </div>
         </section>
@@ -779,21 +736,98 @@
             }
         });
         
-        // Filter buttons for competitors
+        // Competitors data and filtering
         document.addEventListener('DOMContentLoaded', function() {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(b => b.classList.remove('active', 'bg-primary', 'text-white'));
+            // Competitors data
+            const competitors = [
+                { name: 'nOps', type: 'automation', strength: 'Optimization with Karpenter integration', weakness: 'Unclear bi-directional sync mechanism' },
+                { name: 'CAST AI', type: 'automation', strength: 'Autonomous optimization engine', weakness: 'Bypasses GitOps workflows' },
+                { name: 'Spot.io', type: 'automation', strength: 'Strong in automation', weakness: 'Bypasses GitOps workflows' },
+                { name: 'Kubecost / OpenCost', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
+                { name: 'StormForge', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
+                { name: 'CloudZero', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
+                { name: 'Cloud Provider Tools', type: 'visibility', strength: 'Basic cost visibility', weakness: 'No GitOps integration' }
+            ];
+
+            const competitorsGrid = document.getElementById('competitors-grid');
+            const takeawayText = document.getElementById('takeaway-text');
+
+            function renderCompetitors(filter = 'all') {
+                competitorsGrid.innerHTML = '';
+                competitors.forEach(c => {
+                    if (filter === 'all' || c.type === filter) {
+                        const card = document.createElement('div');
+                        card.className = 'bg-white p-6 rounded-xl shadow-lg feature-card';
+                        
+                        // Determine icon based on type
+                        let iconSvg = '';
+                        if (c.type === 'visibility') {
+                            iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>';
+                        } else {
+                            iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>';
+                        }
+                        
+                        // Determine badge color based on type
+                        let badgeClass = c.type === 'visibility' ? 
+                            'bg-blue-100 text-blue-800' : 
+                            'bg-green-100 text-green-800';
+                        
+                        // Format type label
+                        let typeLabel = c.type.charAt(0).toUpperCase() + c.type.slice(1) + '-First';
+                        
+                        card.innerHTML = `
+                            <div class="flex items-center mb-4">
+                                <div class="bg-slate-100 p-3 rounded-full">
+                                    ${iconSvg}
+                                </div>
+                                <h3 class="text-lg font-semibold text-slate-800 ml-3">${c.name}</h3>
+                            </div>
+                            <div class="mt-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">
+                                    ${typeLabel}
+                                </span>
+                            </div>
+                            <p class="mt-4 text-slate-600">
+                                <span class="font-semibold text-emerald-600">Strengths:</span> ${c.strength}
+                            </p>
+                            <p class="mt-2 text-slate-600">
+                                <span class="font-semibold text-amber-600">Gap:</span> <span class="key-point">${c.weakness}</span>
+                            </p>
+                        `;
+                        
+                        competitorsGrid.appendChild(card);
+                    }
+                });
+            }
+
+            // Filter buttons functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
                     
-                    // Add active class to clicked button
-                    btn.classList.add('active', 'bg-primary', 'text-white');
+                    // Update active button state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-primary', 'text-white');
+                    });
+                    this.classList.add('active', 'bg-primary', 'text-white');
                     
-                    // Filter logic would go here in a real implementation
+                    // Render filtered competitors
+                    renderCompetitors(filter);
+                    
+                    // Update takeaway text based on filter
+                    if (filter === 'visibility') {
+                        takeawayText.innerHTML = '<p><strong>Visibility-first tools</strong> provide valuable FinOps data, but they burden your team with manually translating these insights into <span class="key-point">GitOps-compliant code changes</span>.</p>';
+                    } else if (filter === 'automation') {
+                        takeawayText.innerHTML = '<p><strong>Automation-first tools</strong> act on FinOps goals but often <span class="key-point">bypass Git</span>, breaking your GitOps workflows and creating configuration drift that needs manual, error-prone reconciliation.</p>';
+                    } else {
+                        takeawayText.innerHTML = '<p>No existing solution effectively bridges the gap between FinOps objectives and GitOps workflows. Current tools either provide cost visibility but leave implementation to <span class="key-point">manual GitOps processes</span>, or automate cost optimization but bypass GitOps, causing <span class="key-point">configuration drift</span>.</p>';
+                    }
                 });
             });
+            
+            // Initial render
+            renderCompetitors();
         });
     </script>
 </body>
