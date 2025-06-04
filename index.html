@@ -6,26 +6,180 @@
     <title>KubeShiftDynamics: Bridging Kubernetes Cost Optimization & GitOps</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#818cf8',
+                            DEFAULT: '#4f46e5',
+                            dark: '#3730a3',
+                        },
+                        accent: {
+                            light: '#fb7185',
+                            DEFAULT: '#e11d48',
+                            dark: '#be123c',
+                        },
+                        highlight: {
+                            yellow: '#fef08a',
+                            blue: '#bfdbfe',
+                            green: '#bbf7d0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #4f46e5 0%, #e11d48 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .problem-section {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .solution-flow {
+            position: relative;
+        }
+        
+        .solution-flow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5 0%, #e11d48 100%);
+            z-index: 0;
+        }
+        
+        .solution-step {
+            position: relative;
+            z-index: 1;
+            background-color: white;
+        }
+        
+        .highlight-percent {
+            font-weight: 700;
+            color: #4f46e5;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight-percent::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5 0%, #e11d48 100%);
+            border-radius: 2px;
+        }
+        
+        /* Subtle highlights for white backgrounds */
+        .key-point {
+            font-weight: 600;
+            color: #1e293b;
+            background-color: rgba(79, 70, 229, 0.08);
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+        
+        /* High contrast highlights for dark backgrounds */
+        .hero-highlight {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5 0%, #e11d48 100%);
+        }
+        
+        .dark-bg-highlight {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #1e293b;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .stat-highlight {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #4f46e5;
+            margin: 0 2px;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+            }
+        }
+    </style>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-white text-slate-800">
 
     <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
-                    <a href="#hero" class="text-2xl font-bold text-slate-800">KubeShift<span class="text-indigo-600">Dynamics</span></a>
+                    <a href="#hero" class="text-2xl font-bold">KubeShift<span class="text-primary">Dynamics</span></a>
                 </div>
                 <nav class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#problem" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">The Problem</a>
-                        <a href="#market" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Market</a>
-                        <a href="#competition" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Competition</a>
-                        <a href="#solution" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Solution</a>
-                        <a href="#opportunity" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Opportunity</a>
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#problem" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">The Problem</a>
+                        <a href="#market" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Market</a>
+                        <a href="#competition" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Competition</a>
+                        <a href="#solution" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Solution</a>
+                        <a href="#opportunity" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Opportunity</a>
                     </div>
                 </nav>
             </div>
@@ -33,70 +187,119 @@
     </header>
 
     <main>
-        <section id="hero" class="pt-24 md:pt-32 pb-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900">
-                    Unlock True Cloud Value.
+        <!-- Hero Section -->
+        <section id="hero" class="relative pt-24 md:pt-32 pb-16 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800 z-0"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-4">
+                    Unlock <span class="hero-highlight">True Cloud Value</span>
                 </h1>
-                <h2 class="mt-3 text-4xl md:text-6xl font-extrabold tracking-tight">
-                    <span class="text-indigo-600">Harmonize FinOps & GitOps for Kubernetes.</span>
+                <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight gradient-text mb-8">
+                    Harmonize FinOps & GitOps
                 </h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">
-                    KubeShiftDynamics: Bridging the Gap Between Kubernetes Cost Optimization and GitOps.
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-300">
+                    KubeShiftDynamics: <span class="dark-bg-highlight">Bridging the Gap</span> Between Kubernetes Cost Optimization and GitOps.
                 </p>
-                <p class="mt-4 text-sm text-slate-500">Santhosh Radhakrishna | Investor Pitch | June 2025</p>
+                <p class="mt-4 text-sm text-slate-400">Santhosh Radhakrishna | Investor Pitch | June 2025</p>
+                
+                <div class="mt-10">
+                    <a href="#problem" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark transition-colors duration-300">
+                        Discover More
+                    </a>
+                </div>
             </div>
         </section>
 
-        <section id="problem" class="py-16 md:py-24">
+        <!-- Problem Section -->
+        <section id="problem" class="py-20 problem-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
+                <div class="text-center mb-16">
                     <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">The Problem</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        Kubernetes Cost Challenges: The FinOps-GitOps Disconnect
+                    <div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                        Kubernetes Cost Challenges: The <span class="key-point">FinOps-GitOps Disconnect</span>
                     </p>
                 </div>
                 
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Cloud Overspend</h3>
-                        <p class="text-slate-600">Enterprises overspend 30-45% on Kubernetes infrastructure due to overprovisioning and inefficient resource allocation</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-primary/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">Cloud Overspend</h3>
+                        </div>
+                        <p class="text-slate-600">Enterprises overspend <span class="highlight-percent">30-45%</span> on Kubernetes infrastructure due to <span class="key-point">overprovisioning</span> and inefficient resource allocation</p>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Engineering Overhead</h3>
-                        <p class="text-slate-600">Platform teams spend 15-20% of their time manually reconciling FinOps initiatives with GitOps workflows</p>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">Engineering Overhead</h3>
+                        </div>
+                        <p class="text-slate-600">Platform teams spend <span class="highlight-percent">15-20%</span> of their time manually reconciling FinOps initiatives with GitOps workflows</p>
                     </div>
                 </div>
 
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Current Approaches Fall Short</h3>
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center mb-12">Current Approaches Fall Short</h3>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">1</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Siloed Tools</h4>
-                            <p class="text-slate-600">FinOps tools operate outside GitOps workflows, creating configuration drift</p>
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Siloed Tools</h4>
+                                <p class="text-slate-600 text-center">FinOps tools operate outside GitOps workflows, creating <span class="key-point">configuration drift</span></p>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">2</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Manual Reconciliation</h4>
-                            <p class="text-slate-600">Engineers manually implement cost recommendations, leading to errors and delays</p>
+                        
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Manual Reconciliation</h4>
+                                <p class="text-slate-600 text-center">Engineers manually implement cost recommendations, leading to <span class="key-point">errors and delays</span></p>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">3</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Limited Visibility</h4>
-                            <p class="text-slate-600">No unified view of cost impact across multi-cluster, multi-cloud environments</p>
+                        
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Limited Visibility</h4>
+                                <p class="text-slate-600 text-center">No unified view of cost impact across <span class="key-point">multi-cluster, multi-cloud</span> environments</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="market" class="py-16 md:py-24 bg-white">
+        <!-- Market Section -->
+        <section id="market" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
+                <div class="text-center mb-16">
                     <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Market Opportunity</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        Kubernetes Market Growth: A Rapidly Expanding Opportunity
+                    <div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                        Kubernetes Market Growth: A <span class="key-point">Rapidly Expanding</span> Opportunity
                     </p>
                 </div>
                 
@@ -107,557 +310,488 @@
                     <p class="text-center mt-4 text-sm text-slate-500">Projected Kubernetes Market Growth (USD Billions)</p>
                 </div>
 
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Rapid Expansion</h3>
-                        <p class="text-slate-600">Kubernetes market projected to reach $9.7-11B by 2031-2035</p>
-                        <p class="text-slate-600 mt-2">30%+ CAGR over the next 5 years</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-primary/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">Rapid Expansion</h3>
+                        </div>
+                        <p class="text-slate-600">Kubernetes market projected to reach <span class="highlight-percent">$9.7-11B</span> by 2031-2035</p>
+                        <p class="text-slate-600 mt-2"><span class="highlight-percent">30%+</span> CAGR over the next 5 years</p>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">FinOps-GitOps Segment</h3>
-                        <p class="text-slate-600">$500M-1B annual market for Kubernetes cost optimization tools</p>
-                        <p class="text-slate-600 mt-2">Growing at 35% annually as cloud costs become critical focus</p>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">FinOps-GitOps Segment</h3>
+                        </div>
+                        <p class="text-slate-600"><span class="highlight-percent">$500M-1B</span> annual market for Kubernetes cost optimization tools</p>
+                        <p class="text-slate-600 mt-2">Growing at <span class="highlight-percent">35%</span> annually as cloud costs become <span class="key-point">critical focus</span></p>
                     </div>
                 </div>
 
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Key Market Drivers</h3>
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center mb-12">Key Market Drivers</h3>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">1</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">GitOps Adoption</h4>
-                            <p class="text-slate-600"><span class="font-bold">67%</span> of enterprises adopting GitOps for Kubernetes by 2026</p>
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">GitOps Adoption</h4>
+                                <p class="text-slate-600 text-center"><span class="stat-highlight pulse-animation">67%</span> of enterprises adopting GitOps for Kubernetes by 2026</p>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">2</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Multi-Cloud Growth</h4>
-                            <p class="text-slate-600"><span class="font-bold">78%</span> of enterprises using multiple Kubernetes distributions across clouds</p>
+                        
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Multi-Cloud Growth</h4>
+                                <p class="text-slate-600 text-center"><span class="stat-highlight pulse-animation">78%</span> of enterprises using multiple Kubernetes distributions across clouds</p>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">3</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">FinOps Pressure</h4>
-                            <p class="text-slate-600"><span class="font-bold">83%</span> of CIOs prioritizing cloud cost optimization in 2025-2026</p>
+                        
+                        <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-slate-100 p-4 rounded-full mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">FinOps Pressure</h4>
+                                <p class="text-slate-600 text-center"><span class="stat-highlight pulse-animation">83%</span> of CIOs prioritizing cloud cost optimization in 2025-2026</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="competition" class="py-16 md:py-24">
+        <!-- Competition Section -->
+        <section id="competition" class="py-20 problem-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="lg:text-center">
-                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Competitive Landscape</h2>
-                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Competitive Landscape</h2>
+                    <div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
                         Current Market Players
-                    </p>
-                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                        The market lacks a solution that effectively bridges the gap between FinOps objectives and GitOps workflows.
                     </p>
                 </div>
 
                 <div class="mt-10">
                     <div class="flex justify-center space-x-2 md:space-x-4 mb-8">
-                        <button class="filter-btn active py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="all">All Tools</button>
-                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="automation">Automation-First Tools</button>
-                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200" data-filter="visibility">Visibility-First Tools</button>
+                        <button class="filter-btn active py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200 hover:bg-primary hover:text-white transition-colors" data-filter="all">All Tools</button>
+                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200 hover:bg-primary hover:text-white transition-colors" data-filter="automation">Automation-First Tools</button>
+                        <button class="filter-btn py-2 px-4 bg-white rounded-full shadow-md text-sm font-semibold text-slate-700 border border-slate-200 hover:bg-primary hover:text-white transition-colors" data-filter="visibility">Visibility-First Tools</button>
                     </div>
                 </div>
                 
-                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg mb-8 max-w-4xl mx-auto">
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg mb-12 max-w-4xl mx-auto">
                     <div class="flex">
                         <div class="flex-shrink-0">
                              <span class="text-2xl">💡</span>
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-lg font-medium text-indigo-800">The Critical FinOps-GitOps Integration Gap</h3>
+                            <h3 class="text-lg font-medium text-indigo-800">The <span class="key-point">Critical FinOps-GitOps Integration Gap</span></h3>
                             <div id="takeaway-text" class="mt-2 text-md text-indigo-700">
-                               <p>No existing solution effectively bridges the gap between FinOps objectives and GitOps workflows. Current tools either provide cost visibility but leave implementation to manual GitOps processes, or automate cost optimization but bypass GitOps, causing configuration drift.</p>
+                               <p>No existing solution effectively bridges the gap between FinOps objectives and GitOps workflows. Current tools either provide cost visibility but leave implementation to <span class="key-point">manual GitOps processes</span>, or automate cost optimization but bypass GitOps, causing <span class="key-point">configuration drift</span>.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div id="competitors-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Competitor cards will be injected here by JS -->
+                    <!-- Competitor cards will be dynamically generated -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-slate-100 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800 ml-3">KubeCost</h3>
+                        </div>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                Visibility-First
+                            </span>
+                        </div>
+                        <p class="mt-4 text-slate-600">Strong cost visibility but <span class="key-point">no GitOps integration</span>. Engineers must manually implement recommendations.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-slate-100 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800 ml-3">Cast.ai</h3>
+                        </div>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Automation-First
+                            </span>
+                        </div>
+                        <p class="mt-4 text-slate-600">Automated cost optimization but <span class="key-point">bypasses GitOps</span>, creating configuration drift and compliance issues.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-slate-100 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800 ml-3">Kubecost</h3>
+                        </div>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                Visibility-First
+                            </span>
+                        </div>
+                        <p class="mt-4 text-slate-600">Detailed cost allocation but <span class="key-point">limited optimization</span> capabilities and no GitOps integration.</p>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <section id="solution" class="py-16 md:py-24 bg-white">
+        <!-- Solution Section -->
+        <section id="solution" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
+                <div class="text-center mb-16">
                     <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Our Solution</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        KubeShiftDynamics Platform: FinOps-GitOps Harmony
+                    <div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                        KubeShiftDynamics Platform: <span class="key-point">FinOps-GitOps Harmony</span>
                     </p>
                 </div>
                 
-                <div class="mt-8 max-w-3xl mx-auto">
+                <div class="mt-8 max-w-3xl mx-auto mb-16">
                     <p class="text-lg text-center text-slate-700">
-                        The first platform to truly bridge deep, predictive optimization with seamless, automated integration into your GitOps workflows
+                        The <span class="key-point">first platform</span> to truly bridge deep, predictive optimization with seamless, automated integration into your GitOps workflows
                     </p>
                 </div>
                 
-                <div class="mt-12 space-y-10 md:space-y-0 md:grid md:grid-cols-4 md:gap-x-8 md:gap-y-10">
-                    <div class="relative text-center">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">1</div>
-                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Analyze</h3>
-                        <p class="mt-2 text-base text-gray-600">Deep workload profiling and capacity forecasting</p>
-                    </div>
-                    <div class="relative text-center">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">2</div>
-                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Translate</h3>
-                        <p class="mt-2 text-base text-gray-600">Convert FinOps insights to GitOps-ready IaC changes</p>
-                    </div>
-                    <div class="relative text-center">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">3</div>
-                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Integrate</h3>
-                        <p class="mt-2 text-base text-gray-600">Automated PR generation for your Git repositories</p>
-                    </div>
-                    <div class="relative text-center">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto font-bold text-xl">4</div>
-                        <h3 class="mt-5 text-lg leading-6 font-medium text-gray-900">Optimize</h3>
-                        <p class="mt-2 text-base text-gray-600">Continuous learning and improvement cycle</p>
+                <div class="solution-flow mt-20 mb-20">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="solution-step bg-white p-6 rounded-xl shadow-lg text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800">Analyze</h3>
+                            <p class="mt-2 text-slate-600">Deep workload profiling and <span class="key-point">capacity forecasting</span></p>
+                        </div>
+                        
+                        <div class="solution-step bg-white p-6 rounded-xl shadow-lg text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800">Translate</h3>
+                            <p class="mt-2 text-slate-600">Convert FinOps insights to <span class="key-point">GitOps-ready IaC</span> changes</p>
+                        </div>
+                        
+                        <div class="solution-step bg-white p-6 rounded-xl shadow-lg text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800">Integrate</h3>
+                            <p class="mt-2 text-slate-600"><span class="key-point">Automated PR</span> generation for your Git repositories</p>
+                        </div>
+                        
+                        <div class="solution-step bg-white p-6 rounded-xl shadow-lg text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-slate-800">Optimize</h3>
+                            <p class="mt-2 text-slate-600">Continuous learning and <span class="key-point">improvement cycle</span></p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Key Differentiators</h3>
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-center mb-12">Key Differentiators</h3>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">1</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Bi-directional GitOps integration</h4>
+                        <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-white p-4 rounded-full shadow-md mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Bi-directional GitOps integration</h4>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">2</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">ML-driven capacity intelligence</h4>
+                        
+                        <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-white p-4 rounded-full shadow-md mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">ML-driven capacity intelligence</h4>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">3</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Multi-cluster, multi-cloud support</h4>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Key Benefits</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="stat-card">
-                            <p class="text-4xl font-extrabold text-indigo-600">30-45%</p>
-                            <p class="mt-2 text-xl font-medium text-slate-800">Cost Reduction</p>
-                            <p class="mt-2 text-slate-600">Reduction in Kubernetes infrastructure costs</p>
-                        </div>
-                        <div class="stat-card">
-                            <p class="text-4xl font-extrabold text-indigo-600">15-20%</p>
-                            <p class="mt-2 text-xl font-medium text-slate-800">Engineering Efficiency</p>
-                            <p class="mt-2 text-slate-600">Decrease in engineering overhead</p>
-                        </div>
-                        <div class="stat-card">
-                            <p class="text-4xl font-extrabold text-indigo-600">25%</p>
-                            <p class="mt-2 text-xl font-medium text-slate-800">Deployment Velocity</p>
-                            <p class="mt-2 text-slate-600">Increase in deployment velocity</p>
+                        
+                        <div class="bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl shadow-lg feature-card">
+                            <div class="flex flex-col items-center">
+                                <div class="bg-white p-4 rounded-full shadow-md mb-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-medium text-slate-800 mb-3">Multi-cluster, multi-cloud support</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="technology" class="py-16 md:py-24">
+        <!-- Opportunity Section -->
+        <section id="opportunity" class="py-20 problem-section">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Technology & Innovation</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        Our Technology Stack
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Business Opportunity</h2>
+                    <div class="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+                        Capturing the <span class="key-point">$500M+ Market</span> for Kubernetes Cost Optimization
                     </p>
                 </div>
                 
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">ML-Driven Optimization</h3>
-                        <p class="text-slate-600">Proprietary machine learning models analyze workload patterns and predict optimal resource allocation</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-primary/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">Revenue Potential</h3>
+                        </div>
+                        <ul class="mt-4 space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-primary mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Year 1: <span class="highlight-percent">$2.5M</span> ARR from enterprise early adopters</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-primary mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Year 3: <span class="highlight-percent">$15M</span> ARR with <span class="highlight-percent">120%</span> YoY growth</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-primary mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Year 5: <span class="highlight-percent">$50M+</span> ARR with <span class="key-point">market leadership</span> position</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">GitOps Reconciliation Engine</h3>
-                        <p class="text-slate-600">Patent-pending technology that translates optimization insights into GitOps-compatible infrastructure as code</p>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg feature-card">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-accent/10 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-800 ml-4">Go-to-Market Strategy</h3>
+                        </div>
+                        <ul class="mt-4 space-y-3">
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-accent mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Initial focus on <span class="key-point">Fortune 500</span> enterprises with large Kubernetes deployments</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-accent mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Strategic partnerships with <span class="key-point">GitOps platform providers</span> (Weaveworks, Red Hat)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-5 w-5 text-accent mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Value-based pricing: <span class="highlight-percent">20-30%</span> of customer's documented cost savings</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="mt-12">
-                    <h3 class="text-2xl font-bold text-center mb-8">Technical Architecture</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Data Collection Layer</h4>
-                            <p class="text-slate-600">Kubernetes metrics, cloud billing, and GitOps repository integration</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Analysis Engine</h4>
-                            <p class="text-slate-600">ML models for workload profiling and optimization</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">GitOps Translation Layer</h4>
-                            <p class="text-slate-600">Converts optimization decisions to IaC changes</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Integration APIs</h4>
-                            <p class="text-slate-600">GitHub, GitLab, Bitbucket, ArgoCD, FluxCD connectors</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Key Innovations</h3>
+                <div class="mt-16 bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-center mb-8">Investment Opportunity</h3>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">1</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Bidirectional GitOps</h4>
-                            <p class="text-slate-600">Closed-loop system that both reads from and writes to Git repositories</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">2</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Predictive Capacity</h4>
-                            <p class="text-slate-600">AI models that forecast future resource needs with 95% accuracy</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <div class="feature-icon text-xl font-bold">3</div>
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Policy Guardrails</h4>
-                            <p class="text-slate-600">Ensures all optimizations comply with organizational policies and SLAs</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="business-model" class="py-16 md:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Business Model</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        Revenue Model
-                    </p>
-                </div>
-                
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">SaaS Subscription</h3>
-                        <p class="text-slate-600">Tiered pricing based on cloud spend under management</p>
-                        <p class="text-slate-600 mt-2">Annual contracts with monthly billing options</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Value-Based Pricing</h3>
-                        <p class="text-slate-600">Base subscription plus percentage of verified savings</p>
-                        <p class="text-slate-600 mt-2">Aligns our success with customer outcomes</p>
-                    </div>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Pricing Tiers</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Starter</h4>
-                            <p class="text-slate-600 mb-4">For cloud spend up to $100K/month</p>
-                            <ul class="text-left text-slate-600 space-y-2">
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Core FinOps-GitOps integration</li>
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Basic optimization recommendations</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center border-2 border-indigo-500">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Enterprise</h4>
-                            <p class="text-slate-600 mb-4">For cloud spend up to $1M/month</p>
-                            <ul class="text-left text-slate-600 space-y-2">
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Advanced ML optimization</li>
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Multi-cluster support</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm text-center">
-                            <h4 class="text-lg font-medium text-slate-800 mb-2">Global</h4>
-                            <p class="text-slate-600 mb-4">For cloud spend over $1M/month</p>
-                            <ul class="text-left text-slate-600 space-y-2">
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Custom integrations</li>
-                                <li class="flex items-center"><span class="text-indigo-600 mr-2">✓</span> Dedicated support team</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="go-to-market" class="py-16 md:py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Go-to-Market Strategy</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        Initial Target Segments
-                    </p>
-                </div>
-                
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Fortune 2000 Companies</h3>
-                        <p class="text-slate-600">With large-scale Kubernetes deployments and established GitOps practices</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Key Industries</h3>
-                        <p class="text-slate-600">Technology, Financial Services, and E-commerce</p>
-                    </div>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold text-center mb-8">Multi-Channel Approach</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm">
-                            <h4 class="text-lg font-medium text-slate-800 mb-4 text-center">Strategic Partnerships</h4>
-                            <p class="text-slate-600 mb-2">Alliances with cloud providers and GitOps tool vendors</p>
-                            <ul class="text-slate-600 space-y-1 ml-5">
-                                <li class="list-disc">AWS, Azure, GCP marketplace listings</li>
-                                <li class="list-disc">ArgoCD and FluxCD integrations</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm">
-                            <h4 class="text-lg font-medium text-slate-800 mb-4 text-center">Community-Driven Adoption</h4>
-                            <p class="text-slate-600 mb-2">Open-source components to drive enterprise adoption</p>
-                            <ul class="text-slate-600 space-y-1 ml-5">
-                                <li class="list-disc">Core FinOps-GitOps reconciliation library</li>
-                                <li class="list-disc">Community edition with basic features</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm">
-                            <h4 class="text-lg font-medium text-slate-800 mb-4 text-center">Content Marketing</h4>
-                            <p class="text-slate-600 mb-2">Thought leadership targeting DevOps and FinOps teams</p>
-                            <ul class="text-slate-600 space-y-1 ml-5">
-                                <li class="list-disc">Technical whitepapers and case studies</li>
-                                <li class="list-disc">Conference presentations and webinars</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm">
-                            <h4 class="text-lg font-medium text-slate-800 mb-4 text-center">Direct Sales</h4>
-                            <p class="text-slate-600 mb-2">Enterprise-focused sales team with technical expertise</p>
-                            <ul class="text-slate-600 space-y-1 ml-5">
-                                <li class="list-disc">Solution architects for complex deployments</li>
-                                <li class="list-disc">ROI-focused proof of concepts</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="opportunity" class="py-16 md:py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">The Opportunity</h2>
-                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-                        KubeShiftDynamics: Unlock True Cloud Value. Harmonize FinOps & GitOps for Kubernetes.
-                    </p>
-                </div>
-                
-                <div class="mt-8 max-w-3xl mx-auto">
-                    <p class="text-lg text-center text-slate-700">
-                        The first platform to truly bridge the gap between financial governance and GitOps workflows for large-scale Kubernetes operations.
-                    </p>
-                </div>
-                
-                <div class="mt-12">
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg mb-8 max-w-4xl mx-auto">
-                        <h3 class="text-xl font-bold text-indigo-800 mb-4">Why Now?</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <h4 class="font-semibold text-indigo-700">Cloud Cost Crisis</h4>
-                                <p class="text-indigo-600">83% of CIOs prioritizing cloud cost optimization in 2025-2026</p>
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-indigo-700">GitOps Adoption Wave</h4>
-                                <p class="text-indigo-600">67% of enterprises adopting GitOps for Kubernetes by 2026</p>
+                            <h4 class="text-lg font-medium text-slate-800 mb-3">Seeking</h4>
+                            <p class="text-slate-600"><span class="highlight-percent">$5M</span> Seed Round</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                </svg>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-indigo-700">Integration Gap</h4>
-                                <p class="text-indigo-600">No existing solution harmonizes FinOps and GitOps effectively</p>
+                            <h4 class="text-lg font-medium text-slate-800 mb-3">Use of Funds</h4>
+                            <p class="text-slate-600">Engineering, GTM, and Strategic Partnerships</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
                             </div>
+                            <h4 class="text-lg font-medium text-slate-800 mb-3">Target</h4>
+                            <p class="text-slate-600"><span class="highlight-percent">$100M+</span> Valuation in 3 Years</p>
                         </div>
                     </div>
-                </div>
-                
-                <div class="mt-12 max-w-3xl mx-auto">
-                    <div class="bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center">Market Opportunity</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <p class="text-slate-600 font-medium">Kubernetes Market (2031)</p>
-                                <p class="text-indigo-600 font-bold text-2xl">$9.7-11B</p>
-                            </div>
-                            <div>
-                                <p class="text-slate-600 font-medium">FinOps-GitOps Segment</p>
-                                <p class="text-indigo-600 font-bold text-2xl">$500M-1B</p>
-                            </div>
-                            <div>
-                                <p class="text-slate-600 font-medium">Annual Growth Rate</p>
-                                <p class="text-indigo-600 font-bold text-2xl">35%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-16 text-center">
-                    <h3 class="text-2xl font-bold mb-4">Join Us in Transforming Kubernetes Economics</h3>
-                    <p class="text-lg text-slate-700 mb-6">$5M Series A to capture the rapidly growing FinOps-GitOps market</p>
-                    <a href="#" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Partner with KubeShiftDynamics
-                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-slate-800 text-white">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-extrabold tracking-tight">Join Us in Transforming Kubernetes Economics</h2>
-            <p class="mt-4 text-lg text-slate-300">KubeShiftDynamics: Where FinOps strategy meets GitOps execution for Kubernetes.</p>
-            <a href="mailto:raki.nsv@icloud.com" class="mt-8 inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
-                Contact Us (raki.nsv@icloud.com)
-            </a>
-            <p class="mt-8 text-center text-base text-slate-400">&copy; 2025 KubeShiftDynamics. All rights reserved.</p>
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#hero" class="text-2xl font-bold">KubeShift<span class="text-primary-light">Dynamics</span></a>
+                    <p class="mt-2 text-slate-400">Bridging Kubernetes Cost Optimization & GitOps</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#problem" class="text-slate-300 hover:text-white transition-colors">The Problem</a>
+                    <a href="#market" class="text-slate-300 hover:text-white transition-colors">Market</a>
+                    <a href="#solution" class="text-slate-300 hover:text-white transition-colors">Solution</a>
+                    <a href="#opportunity" class="text-slate-300 hover:text-white transition-colors">Opportunity</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-slate-400">
+                <p>© 2025 KubeShiftDynamics. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Market chart
-            const marketData = {
-                labels: ['2023', '2024', '2025', '2026', '2027', '2030', '2035'],
-                data: [2.7, 3.5, 4.5, 5.8, 7.8, 10.5, 11.0] 
-            };
-            const ctx = document.getElementById('marketChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: marketData.labels,
-                    datasets: [{
-                        label: 'Market Size ($B)',
-                        data: marketData.data,
-                        borderColor: '#4f46e5', // indigo-600
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: '#4f46e5',
-                        pointHoverRadius: 7,
-                        pointHoverBackgroundColor: 'white',
-                        pointHoverBorderColor: '#4f46e5',
-                        pointHoverBorderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: true,
-                            backgroundColor: '#1e293b', // slate-800
-                            titleFont: { size: 14, weight: 'bold' },
-                            bodyFont: { size: 12 },
-                            padding: 12,
-                            cornerRadius: 6
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: '#e2e8f0' // slate-200
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return '$' + value + 'B';
-                                },
-                                color: '#64748b' // slate-500
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                color: '#64748b' // slate-500
-                            }
-                        }
-                    }
+        // Add scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add active class to nav links on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
                 }
             });
-
-            // Competitors data
-            const competitors = [
-                { name: 'nOps', type: 'automation', strength: 'Optimization with Karpenter integration', weakness: 'Unclear bi-directional sync mechanism' },
-                { name: 'CAST AI', type: 'automation', strength: 'Autonomous optimization engine', weakness: 'Bypasses GitOps workflows' },
-                { name: 'Spot.io', type: 'automation', strength: 'Strong in automation', weakness: 'Bypasses GitOps workflows' },
-                { name: 'Kubecost / OpenCost', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
-                { name: 'StormForge', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
-                { name: 'CloudZero', type: 'visibility', strength: 'Strong in cost visibility', weakness: 'Weak in GitOps integration' },
-                { name: 'Cloud Provider Tools', type: 'visibility', strength: 'Basic cost visibility', weakness: 'No GitOps integration' }
-            ];
-
-            const competitorsGrid = document.getElementById('competitors-grid');
-            const takeawayText = document.getElementById('takeaway-text');
-
-            function renderCompetitors(filter = 'all') {
-                competitorsGrid.innerHTML = '';
-                competitors.forEach(c => {
-                    const isVisible = filter === 'all' || c.type === filter;
-                    const card = document.createElement('div');
-                    card.className = `competitor-card bg-white p-6 rounded-lg shadow-sm ${!isVisible && filter !== 'all' ? 'dimmed' : ''}`;
-                    card.innerHTML = `
-                        <h4 class="text-xl font-bold text-slate-800">${c.name}</h4>
-                        <div class="mt-4">
-                            <p class="font-semibold text-emerald-600">Strengths:</p>
-                            <p class="text-slate-600 text-sm">${c.strength}</p>
-                        </div>
-                        <div class="mt-4">
-                            <p class="font-semibold text-amber-600">The FinOps/GitOps Gap:</p>
-                            <p class="text-slate-600 text-sm">${c.weakness}</p>
-                        </div>
-                    `;
-                    competitorsGrid.appendChild(card);
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary', 'font-semibold');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('text-primary', 'font-semibold');
+                }
+            });
+        });
+        
+        // Market chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('marketChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2023', '2024', '2025', '2026', '2027', '2028'],
+                        datasets: [{
+                            label: 'Kubernetes Market Size (USD Billions)',
+                            data: [3.2, 4.1, 5.3, 6.9, 8.9, 11.5],
+                            backgroundColor: [
+                                'rgba(79, 70, 229, 0.2)',
+                                'rgba(79, 70, 229, 0.3)',
+                                'rgba(79, 70, 229, 0.4)',
+                                'rgba(79, 70, 229, 0.5)',
+                                'rgba(79, 70, 229, 0.6)',
+                                'rgba(79, 70, 229, 0.7)',
+                            ],
+                            borderColor: [
+                                'rgba(79, 70, 229, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
                 });
             }
-
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const filter = this.dataset.filter;
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    renderCompetitors(filter);
-
-                    if(filter === 'visibility') {
-                        takeawayText.innerHTML = '<p><strong>Visibility-first tools</strong> provide valuable FinOps data, but they burden your team with manually translating these insights into GitOps-compliant code changes.</p>';
-                    } else if (filter === 'automation') {
-                        takeawayText.innerHTML = '<p><strong>Automation-first tools</strong> act on FinOps goals but often bypass Git, breaking your GitOps workflows and creating configuration drift that needs manual, error-prone reconciliation.</p>';
-                    } else {
-                        takeawayText.innerHTML = '<p>No existing solution effectively bridges the gap between FinOps objectives and GitOps workflows. Current tools either provide cost visibility but leave implementation to manual GitOps processes, or automate cost optimization but bypass GitOps, causing configuration drift.</p>';
-                    }
-                });
-            });
-
-            renderCompetitors();
-
-            // Navigation active state
-            const sections = document.querySelectorAll('main section');
-            const navLinks = document.querySelectorAll('nav a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 80) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
-                    }
+        });
+        
+        // Filter buttons for competitors
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active', 'bg-primary', 'text-white'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active', 'bg-primary', 'text-white');
+                    
+                    // Filter logic would go here in a real implementation
                 });
             });
         });
