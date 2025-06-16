@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- The title would be dynamically set by the SSG -->
+    <title>Document Title | KubeShiftDynamics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Typography plugin for beautiful article styling -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#818cf8',
+                            DEFAULT: '#4f46e5',
+                            dark: '#3730a3',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="antialiased bg-slate-100 text-slate-800">
+
+    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold">KubeShift<span class="text-primary">Dynamics</span></a>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                         <a href="index.html#problem" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">The Problem</a>
+                        <a href="index.html#market" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Market</a>
+                        <a href="index.html#competition" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Competition</a>
+                        <a href="index.html#solution" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Solution</a>
+                        <a href="index.html#opportunity" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Opportunity</a>
+                        <a href="index.html#documents" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-primary transition-colors">Documents</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12 md:py-16">
+        <!-- This container is now full-width with padding -->
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white p-8 md:p-12 rounded-lg shadow-lg">
+                <!-- The 'prose' class from the typography plugin styles the Markdown content automatically -->
+                <!-- The max-w-none class removes the default max-width of the prose class for a full-width layout -->
+                <article class="prose prose-lg lg:prose-xl max-w-none">
+                    <!-- The SSG will convert Markdown to HTML and insert it here -->
+                    {{ content | safe }}
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <a href="index.html" class="text-2xl font-bold">KubeShift<span class="text-primary-light">Dynamics</span></a>
+            <p class="mt-2 text-slate-400">Bridging Kubernetes Cost Optimization & GitOps</p>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-slate-400">
+                <p>&copy; 2025 KubeShiftDynamics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
