@@ -3,6 +3,21 @@ layout: document-layout.html
 ---
 # State of the Market: The Convergence of FinOps and GitOps for Kubernetes Cost Optimization
 
+## Table of Contents
+- [executive summary](#executive-summary)
+- [the core challenge](#the-core-challenge)
+- [key findings](#key-findings)
+- [strategic conclusion](#strategic-conclusion)
+- [the collision of paradigms kubernetes cost optimization meets the gitops mandate](#the-collision-of-paradigms-kubernetes-cost-optimization-meets-the-gitops-mandate)
+  - [21 the kubernetes cost imperative the rise of finops](#21-the-kubernetes-cost-imperative-the-rise-of-finops)
+  - [22 the gitops mandate git as the single source of truth](#22-the-gitops-mandate-git-as-the-single-source-of-truth)
+  - [23 the foundational conflict the gitops integration gap](#23-the-foundational-conflict-the-gitops-integration-gap)
+- [comparative analysis and feature matrix](#comparative-analysis-and-feature-matrix)
+- [the unmet need architecting the ideal gitops-native finops platform](#the-unmet-need-architecting-the-ideal-gitops-native-finops-platform)
+- [the dual challenge technical and cultural hurdles to integration](#the-dual-challenge-technical-and-cultural-hurdles-to-integration)
+- [strategic recommendations and conclusion](#strategic-recommendations-and-conclusion)
+
+
 ## Executive Summary
 ### Synopsis of the Market
 The rapid enterprise adoption of Kubernetes has created a dual imperative: the need for stringent financial governance (FinOps) to control spiraling costs and the need for operational rigor (GitOps) to manage complexity at scale. An analysis of the current market reveals that while numerous tools address these domains individually, a significant "integration gap" persists at their intersection. The market for Kubernetes cost optimization is mature in providing cost visibility and autonomous optimization actions. However, it remains nascent in its ability to natively and seamlessly integrate these optimizations into the declarative, version-controlled workflows central to GitOps.

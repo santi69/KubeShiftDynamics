@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Santhosh-Radhakrishna/KubeShiftDynamics#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.1"
+    "@11ty/eleventy": "^3.1.1",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0"
   }
 }

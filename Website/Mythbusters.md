@@ -1,7 +1,7 @@
 ---
 layout: document-layout.html
 ---
-# Devil's Advocate: Questioning the FinOps-GitOps Opportunity
+# Mythbusters: FinOps-GitOps Unfiltered
 
 This document challenges the core assertions of the market analysis to ensure the proposed opportunity is robust, defensible, and truly significant.
 
