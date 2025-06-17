@@ -30,6 +30,7 @@ module.exports = function(eleventyConfig) {
       input: ".",
       output: "../docs",
       includes: "_includes"
-    }
+    },
+    pathPrefix: "/KubeShiftDynamics/"
   };
 };
