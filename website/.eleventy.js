@@ -19,18 +19,23 @@ module.exports = function(eleventyConfig) {
   const mdLib = markdownIt(options).use(markdownItAnchor, anchorOpts);
   eleventyConfig.setLibrary("md", mdLib);
 
-  // This tells Eleventy to use the Nunjucks templating engine
-  // for all Markdown and HTML files. This is what enables
-  // the `safe` filter to work correctly.
+  // Copy static assets
+  eleventyConfig.addPassthroughCopy("css");
+  eleventyConfig.addPassthroughCopy("images");
+
+  // Add permalink configuration
+  eleventyConfig.addGlobalData("permalinkRoot", "/");
+
   return {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
-
+    pathPrefix: "/KubeShiftDynamics/",
     dir: {
       input: ".",
       output: "../docs",
-      includes: "_includes"
-    },
-    pathPrefix: "/KubeShiftDynamics/"
+      includes: "_includes",
+      layouts: "_includes",
+      data: "_data"
+    }
   };
 };
