@@ -18,7 +18,13 @@
     .subtile { flex: 1 1 320px; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.06); border-radius: 10px; background: #f8fafd; padding: 1.1em 1.3em; margin-bottom: 0.5em; min-width: 260px; border: 1px solid #e3e8ee; }
     .feature-tile { background: #f6f9ff; border-left: 4px solid #1976d2; }
     .month-tile { background: #f9fbe7; border-left: 4px solid #cddc39; }
-    .callout-info { background: #e8f4fd; border-left: 4px solid #2196f3; padding: 1em; border-radius: 8px; }
+    .callout-info { 
+      background: #ffffff;
+      border-left: 4px solid #0055d4; 
+      padding: 1.2em; 
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,85,212,0.08);
+    }
     .callout-warning { background: #fff8e1; border-left: 4px solid #ff9800; padding: 1em; border-radius: 8px; }
     .callout-success { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 1em; border-radius: 8px; }
     .callout-highlight { background: #f3e8fd; border-left: 4px solid #9c27b0; padding: 1em; border-radius: 8px; }
@@ -30,37 +36,65 @@
     .executive-summary {
       display: flex;
       flex-direction: column;
-      gap: 1.1em;
-      font-size: 1.13rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,85,212,0.08);
+      border-left: 5px solid #0055d4;
+      overflow: hidden;
+      margin-top: 0.5em;
     }
     .summary-row {
       display: flex;
-      flex-wrap: wrap;
       align-items: flex-start;
-      gap: 0.6em;
-      background: #fafdff;
-      border-radius: 7px;
-      padding: 0.7em 1em;
-      box-shadow: 0 1px 6px rgba(33,150,243,0.04);
-      border-left: 5px solid #1976d2;
+      padding: 1.2em 1.5em;
+      border-bottom: 1px solid rgba(0,85,212,0.08);
+    }
+    .summary-row:last-child {
+      border-bottom: none;
     }
     .summary-label {
+      flex: 0 0 140px;
       font-weight: 700;
-      color: #1976d2;
-      min-width: 120px;
+      color: #0055d4;
+      text-transform: uppercase;
+      font-size: 0.75em;
+      letter-spacing: 0.06em;
+      padding-top: 0.25em;
     }
     .summary-highlight {
-      background: #e3f2fd;
-      color: #0d47a1;
-      font-weight: 700;
-      padding: 0.1em 0.5em;
-      border-radius: 5px;
-      margin-right: 0.3em;
+      background: #e6eeff;
+      color: #002b6b;
+      font-weight: 600;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      margin-right: 0.5em;
       display: inline-block;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+    .summary-row-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .summary-row b {
+      font-weight: 600;
+      color: #002b6b;
     }
     @media (max-width: 700px) {
-      .summary-row { flex-direction: column; gap: 0.3em; }
-      .summary-label { min-width: 0; }
+      .summary-row {
+        flex-direction: column;
+        padding: 1em 1.2em;
+      }
+      .summary-label {
+        flex: none;
+        padding-top: 0;
+        margin-bottom: 0.4em;
+      }
+      .summary-highlight {
+        margin-bottom: 0.3em;
+      }
     }
     @media (max-width: 900px) {
       .subtile-section { flex-direction: column; gap: 1em; }
@@ -74,30 +108,42 @@
     <div class="tile-section">
       <div class="tile-shadow">
         <div class="section-title">💼 1. Executive Summary (The Investor's Lens)</div>
-        <div class="callout-info executive-summary">
+        <div class="executive-summary">
           <div class="summary-row">
             <span class="summary-label">Market Size:</span>
-            <span class="summary-highlight">$10B+</span> Kubernetes cost optimization market
+            <div class="summary-row-content">
+              <span class="summary-highlight">$10B+</span> Kubernetes cost optimization market
+            </div>
           </div>
           <div class="summary-row">
             <span class="summary-label">The Problem:</span>
-            <span class="summary-highlight">Last-mile implementation gap</span> — Most tools identify savings but <b>fail to automate the actual changes</b>leaving DevOps teams with manual, error-prone work and lost ROI.
+            <div class="summary-row-content">
+              <span class="summary-highlight">Last-mile implementation gap</span> — Most tools identify savings but <b>fail to automate the actual changes</b> leaving DevOps teams with manual, error-prone work and lost ROI.
+            </div>
           </div>
           <div class="summary-row">
             <span class="summary-label">Our Solution:</span>
-            <span class="summary-highlight">AI-driven, autonomous cost optimization</span> — <b>Find, Localize, and safely Implement </b> PoC proves an AI engine can find, localize, and safely implement savings by creating pull requests directly in the customer’s existing GitOps workflow.
+            <div class="summary-row-content">
+              <span class="summary-highlight">AI-driven, autonomous cost optimization</span> — <b>Find, Localize, and safely Implement</b> PoC proves an AI engine can find, localize, and safely implement savings by creating pull requests directly in the customer's existing GitOps workflow.
+            </div>
           </div>
           <div class="summary-row">
             <span class="summary-label">Key Differentiator:</span>
-            <span class="summary-highlight">AI that understands any repo</span> — Navigates any Git repository structure, finds the right files, and makes precise, reviewable changes. <b>No vendor lock-in.</b>
+            <div class="summary-row-content">
+              <span class="summary-highlight">AI that understands any repo</span> — Navigates any Git repository structure, finds the right files, and makes precise, reviewable changes. <b>No vendor lock-in.</b>
+            </div>
           </div>
           <div class="summary-row">
             <span class="summary-label">PoC Goal:</span>
-            <span class="summary-highlight">De-risk the hardest technical challenge</span> — Prove we can automate the end-to-end workflow for a sophisticated, high-value market segment.
+            <div class="summary-row-content">
+              <span class="summary-highlight">De-risk the hardest technical challenge</span> — Prove we can automate the end-to-end workflow for a sophisticated, high-value market segment.
+            </div>
           </div>
           <div class="summary-row">
             <span class="summary-label">Commercial Impact:</span>
-            <span class="summary-highlight">Clear path to product-market fit</span> — A successful PoC demonstrates tangible cost savings and operational efficiency, unlocking a large commercial opportunity.
+            <div class="summary-row-content">
+              <span class="summary-highlight">Clear path to product-market fit</span> — A successful PoC demonstrates tangible cost savings and operational efficiency, unlocking a large commercial opportunity.
+            </div>
           </div>
         </div>
       </div>
