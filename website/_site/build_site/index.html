@@ -1,0 +1,100 @@
+<h1 id="getting-started-with-a-static-site-generator-on-macos" tabindex="-1">Getting Started with a Static Site Generator on macOS</h1>
+<p>This guide will walk you through setting up a complete project using the Eleventy (11ty) static site generator. By the end, you'll be able to edit your documents in Markdown and have the final HTML pages built automatically.</p>
+<hr>
+<h2 id="step-1-install-prerequisites" tabindex="-1">Step 1: Install Prerequisites</h2>
+<p>First, we need to ensure you have a code editor and the Node.js runtime, which Eleventy uses.</p>
+<h3 id="a-install-homebrew-the-mac-package-manager" tabindex="-1">A. Install Homebrew (The Mac Package Manager)</h3>
+<p>If you don't already have it, open the Terminal app on your Mac and paste this command to install Homebrew:</p>
+<pre><code class="language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+</code></pre>
+<h3 id="b-install-nodejs" tabindex="-1">B. Install Node.js</h3>
+<p>With Homebrew installed, you can now easily install Node.js. In your Terminal, run:</p>
+<pre><code class="language-bash">brew install node
+</code></pre>
+<h3 id="c-get-a-code-editor" tabindex="-1">C. Get a Code Editor</h3>
+<p>If you don't have one, we highly recommend <a href="https://code.visualstudio.com/">Visual Studio Code</a>. It's free and works perfectly for this kind of project.</p>
+<hr>
+<h2 id="step-2-set-up-your-project-folder" tabindex="-1">Step 2: Set Up Your Project Folder</h2>
+<p>Now, let's create a folder for your website and set up the basic structure.</p>
+<h3 id="create-a-project-folder" tabindex="-1">Create a Project Folder</h3>
+<p>Open your Terminal and run these commands:</p>
+<pre><code class="language-bash">mkdir kubeshift-site
+cd kubeshift-site
+</code></pre>
+<h3 id="initialize-the-project" tabindex="-1">Initialize the Project</h3>
+<p>This command creates a <code>package.json</code> file:</p>
+<pre><code class="language-bash">npm init -y
+</code></pre>
+<h3 id="install-eleventy" tabindex="-1">Install Eleventy</h3>
+<p>Install Eleventy as a development dependency:</p>
+<pre><code class="language-bash">npm install --save-dev @11ty/eleventy
+</code></pre>
+<h3 id="create-a-configuration-file-the-fix" tabindex="-1">Create a Configuration File (The Fix)</h3>
+<p>Create a file named <code>.eleventy.js</code> in your project’s root directory and paste the following:</p>
+<pre><code class="language-js">module.exports = function(eleventyConfig) {
+  // This tells Eleventy to use the Nunjucks templating engine
+  // for all Markdown and HTML files. This is what enables
+  // the `safe` filter to work correctly.
+  return {
+    markdownTemplateEngine: &quot;njk&quot;,
+    htmlTemplateEngine: &quot;njk&quot;,
+
+    dir: {
+      input: &quot;.&quot;,
+      output: &quot;_site&quot;,
+      includes: &quot;_includes&quot;
+    }
+  };
+};
+</code></pre>
+<hr>
+<h2 id="step-3-create-your-websites-structure-and-content" tabindex="-1">Step 3: Create Your Website's Structure and Content</h2>
+<h3 id="create-an-includes-folder" tabindex="-1">Create an <code>_includes</code> Folder</h3>
+<p>This special folder is where Eleventy looks for layouts:</p>
+<pre><code class="language-bash">mkdir _includes
+</code></pre>
+<h3 id="save-the-layout-file" tabindex="-1">Save the Layout File</h3>
+<p>Create a file named <code>document-layout.html</code> inside <code>_includes</code>. Paste the full HTML layout code (ensure it contains ``).</p>
+<h3 id="save-the-indexhtml-file" tabindex="-1">Save the <code>index.html</code> File</h3>
+<p>In the main <code>kubeshift-site</code> folder, create a file named <code>index.html</code> and paste your homepage HTML content.</p>
+<h3 id="save-the-markdown-document-files" tabindex="-1">Save the Markdown Document Files</h3>
+<p>Create the following Markdown files in the <code>kubeshift-site</code> folder:</p>
+<ul>
+<li><code>market-analysis.md</code></li>
+<li><code>state-of-the-market.md</code></li>
+<li><code>poc-plan.md</code></li>
+<li><code>devils-advocate.md</code></li>
+</ul>
+<p>Each file should begin with the following front matter:</p>
+<pre><code class="language-markdown">---
+layout: document-layout.html
+---
+</code></pre>
+<p>Below the front matter, paste the full Markdown content for that specific document.</p>
+<h3 id="final-folder-structure" tabindex="-1">Final Folder Structure</h3>
+<p>Your project should now look like this:</p>
+<pre><code>kubeshift-site/
+├── _includes/
+│   └── document-layout.html
+├── .eleventy.js
+├── index.html
+├── market-analysis.md
+├── state-of-the-market.md
+├── poc-plan.md
+├── devils-advocate.md
+└── package.json
+</code></pre>
+<hr>
+<h2 id="step-4-build-your-site-and-view-it-live" tabindex="-1">Step 4: Build Your Site and View It Live</h2>
+<p>You're all set! Now you can run Eleventy to build the website.</p>
+<h3 id="run-the-development-server" tabindex="-1">Run the Development Server</h3>
+<p>In your Terminal:</p>
+<pre><code class="language-bash">npx @11ty/eleventy --serve
+</code></pre>
+<p>This will start a local server and build your site using the configuration.</p>
+<h3 id="view-your-site" tabindex="-1">View Your Site</h3>
+<p>Open your browser and visit the address shown in your terminal (usually <a href="http://localhost:8080">http://localhost:8080</a>).</p>
+<p>You should see your <code>index.html</code> page and be able to click into your Markdown-powered pages like <code>/market-analysis/</code>.</p>
+<hr>
+<h2 id="the-magic-of-the-workflow" tabindex="-1">The Magic of the Workflow</h2>
+<p>Whenever you want to edit a document, just open the corresponding <code>.md</code> file in VS Code, make changes, and save. Eleventy's dev server will automatically rebuild the site. Refresh your browser to see the updates instantly.</p>

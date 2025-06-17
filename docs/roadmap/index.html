@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap to Public Preview Version v1.0 | KubeShiftDynamics</title>
+  <link rel="stylesheet" href="/css/poc-plan-tiles.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #f5f7fa; }
+    .main-container { max-width: 1100px; margin: 2.5rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); padding: 2.5rem 2rem; }
+    h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+    .section-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5em; }
+    .tile-section { display: flex; flex-direction: column; gap: 2.5em; }
+    .tile-shadow { box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08); border-radius: 14px; background: #fff; padding: 2em 2.2em; margin-bottom: 1em; border: 1px solid #e3e8ee; }
+    .subtile-section { display: flex; flex-wrap: wrap; gap: 1.5em; margin-top: 1em; }
+    .subtile { flex: 1 1 320px; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.06); border-radius: 10px; background: #f8fafd; padding: 1.1em 1.3em; margin-bottom: 0.5em; min-width: 260px; border: 1px solid #e3e8ee; }
+    .feature-tile { background: #f6f9ff; border-left: 4px solid #1976d2; }
+    .month-tile { background: #f9fbe7; border-left: 4px solid #cddc39; }
+    @media (max-width: 900px) {
+      .subtile-section { flex-direction: column; gap: 1em; }
+      .main-container { padding: 1.2rem 0.5rem; }
+    }
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5em;
+    }
+    .roadmap-tile {
+      min-width: 320px;
+      max-width: 100%;
+      transition: box-shadow 0.2s, transform 0.2s;
+      border-left: 6px solid #1976d2;
+      background: #fff;
+      position: relative;
+    }
+    .roadmap-tile-wide {
+      grid-column: 1 / 3;
+    }
+    .roadmap-tile:hover {
+      box-shadow: 0 8px 32px rgba(25, 118, 210, 0.13), 0 1.5px 4px rgba(0,0,0,0.08);
+      transform: translateY(-4px) scale(1.02);
+      z-index: 2;
+    }
+    .roadmap-tile .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+      color: #1976d2;
+      letter-spacing: 0.01em;
+    }
+    .roadmap-tile ul {
+      margin: 0 0 0 1.1em;
+      padding: 0;
+      font-size: 1.08rem;
+    }
+    .roadmap-tile li {
+      margin-bottom: 0.7em;
+      line-height: 1.6;
+    }
+    .highlight {
+      background: #e3f2fd;
+      color: #0d47a1;
+      font-weight: 700;
+      padding: 0.1em 0.4em;
+      border-radius: 5px;
+      box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+      margin-right: 0.3em;
+      display: inline-block;
+    }
+    @media (max-width: 900px) {
+      .roadmap-grid {
+        grid-template-columns: 1fr;
+      }
+      .roadmap-tile-wide {
+        grid-column: 1 / 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1>Roadmap to Public Preview Version v1.0</h1>
+    <div class="tile-section roadmap-grid">
+      <div class="tile-shadow roadmap-tile roadmap-tile-wide">
+        <div class="section-title">🤖 AI & Intelligence</div>
+        <ul>
+          <li><span class="highlight">Granular Control:</span> Give users more control over the AI engine, including:
+            <ul>
+              <li>Whitelisting/blacklisting of specific resources, namespaces, or clusters.</li>
+              <li>Setting a minimum desired node count and preferred CPU families (e.g., Graviton).</li>
+              <li>Configuring a buffer (e.g., +20%) to be added on top of recommendations for critical applications and should help avoid any snowflakes.</li>
+            </ul>
+          </li>
+          <li><span class="highlight">IaC Best Practices:</span> The AI will analyze repository structure and IaC files to provide recommendations on aligning with industry best practices for better organization and maintainability.</li>
+          <li><span class="highlight">Expanded IaC Tooling:</span> Broaden the AI's modification capabilities to include other popular tools like Kustomize and Pulumi.</li>
+          <li><span class="highlight">Workflow Automation:</span> For non-production environments, provide an option to bypass the PR approval process and merge changes automatically, enabling rapid iteration for dev/test clusters.</li>
+        </ul>
+      </div>
+      <div class="tile-shadow roadmap-tile">
+        <div class="section-title">⚡ Optimization Engine</div>
+        <ul>
+          <li><span class="highlight">Noise Reduction:</span> Implement algorithms to group similar recommendations and reduce alert fatigue, preventing users from being spammed with too many minor suggestions.</li>
+          <li><span class="highlight">Personalization & Relevancy:</span> Enhance the engine to learn from user actions (e.g., which PRs are accepted vs. rejected) to provide more targeted and relevant suggestions over time.</li>
+          <li><span class="highlight">Advanced Optimizations:</span> Expand beyond right-sizing to include recommendations for spot instance usage, Reserved Instance/Savings Plan purchases, and idle resource cleanup.</li>
+        </ul>
+      </div>
+      <div class="tile-shadow roadmap-tile">
+        <div class="section-title">🔗 Connection & Architecture</div>
+        <ul>
+          <li><span class="highlight">Agent-Based Model:</span> Transition from a kubeconfig/IAM-based connection to a lightweight, secure agent deployed in the customer's cluster. This enables reliable egress-only communication, supporting private clusters and complex firewall configurations.</li>
+          <li><span class="highlight">Database & Data Storage:</span> Implement intelligent data retention and auto-cleanup policies to prevent database bloat. Begin offloading historical metric data to cheaper, long-term storage like Amazon S3 for trend analysis.</li>
+        </ul>
+      </div>
+      <div class="tile-shadow roadmap-tile">
+        <div class="section-title">🖥️ Frontend & User Experience</div>
+        <ul>
+          <li><span class="highlight">Identity Management:</span> Integrate with standard Identity Providers (IDPs) like OAuth2 (Google, GitHub) for secure and seamless user authentication.</li>
+          <li><span class="highlight">Value-Oriented Dashboards:</span> Develop dashboards that track key performance indicators, such as:
+            <ul>
+              <li>Real-time and historical cost savings achieved.</li>
+              <li>Total number of automated PRs created to show manpower effectiveness.</li>
+              <li>Success rate of merged PRs from recommendations.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="tile-shadow roadmap-tile">
+        <div class="section-title">🌐 Platform & Ecosystem Support</div>
+        <ul>
+          <li><span class="highlight">Multi-Cloud Expansion:</span> Add full support for Azure Kubernetes Service (AKS) and Google Kubernetes Engine (GKE), providing a consistent optimization experience across all major cloud providers.</li>
+          <li><span class="highlight">Expanded Git Provider Support:</span> Extend to use GitHub Apps for higher rate limits and better security. Add support for various GitHub hosting options (Public, Private, Self-Hosted, Enterprise) and other providers like GitLab and Bitbucket.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
