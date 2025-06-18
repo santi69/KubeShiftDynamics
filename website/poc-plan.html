@@ -197,11 +197,11 @@
                   <li>The service clones the specified GitHub repo.</li>
                   <li>It recursively scans the repo, looking for .tf and values.yaml files.</li>
                   <li>The AI engine uses a combination of file content analysis and the recommendation context (e.g., the resource name ng-main-app) to identify the target file(s).</li>
-                  <li>It parses the file to locate and programmatically update the specific attribute (instance_type = "m5.large").</li>
+                  <li>It parses the file to locate and programmatically update the specific attribute (instance_type = "m5.large") and similarly for applications values.yaml files with recommended new resource requests.</li>
                 </ul>
               </li>
               <li><b>Propose:</b> The service uses the GitHub API to create a new branch, commit the change, and open a Pull Request.</li>
-              <li><b>Display:</b> The UI updates to show a link to the open PR.</li>
+              <li><b>Display:</b> The UI updates to show the reasoning behind the change and a link to the open PR.</li>
             </ol>
           </div>
           <div class="subtile">
