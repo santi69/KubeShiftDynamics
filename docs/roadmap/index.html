@@ -86,11 +86,24 @@
       <div class="tile-shadow roadmap-tile roadmap-tile-wide">
         <div class="section-title">🤖 AI & Intelligence</div>
         <ul>
-          <li><span class="highlight">Granular Control:</span> Give users more control over the AI engine, including:
+          <li>
+            <span class="highlight">Model Choice & Control (MCP):</span>
+            <ul>
+              <li>
+                Give users the ability to select which AI model powers their experience (e.g., OpenAI, Anthropic, Gemini, etc).
+              </li>
+              <li>
+                MCP enables standardization across teams and environments for consistent AI integration, governance, and future-proofing as new models emerge.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span class="highlight">Granular Control:</span>
+            Provide centralized controls for:
             <ul>
               <li>Whitelisting/blacklisting of specific resources, namespaces, or clusters.</li>
               <li>Setting a minimum desired node count and preferred CPU families (e.g., Graviton).</li>
-              <li>Configuring a buffer (e.g., +20%) to be added on top of recommendations for critical applications and should help avoid any snowflakes.</li>
+              <li>Configuring a buffer (e.g., +20%) to be added on top of recommendations for critical applications and to help avoid any snowflakes.</li>
             </ul>
           </li>
           <li><span class="highlight">IaC Best Practices:</span> The AI will analyze repository structure and IaC files to provide recommendations on aligning with industry best practices for better organization and maintainability.</li>
