@@ -1,283 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PoC Plan: GitOps-Native Kubernetes Cost Optimization | KubeShiftDynamics</title>
-  <link rel="stylesheet" href="/css/poc-plan-tiles.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; background: #f5f7fa; }
-    .main-container { max-width: 1100px; margin: 2.5rem auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); padding: 2.5rem 2rem; }
-    h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; }
-    .section-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5em; }
-    .tile-section { display: flex; flex-direction: column; gap: 2.5em; }
-    .tile-shadow { box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08); border-radius: 14px; background: #fff; padding: 2em 2.2em; margin-bottom: 1em; border: 1px solid #e3e8ee; }
-    .subtile-section { display: flex; flex-wrap: wrap; gap: 1.5em; margin-top: 1em; }
-    .subtile { flex: 1 1 320px; box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.06); border-radius: 10px; background: #f8fafd; padding: 1.1em 1.3em; margin-bottom: 0.5em; min-width: 260px; border: 1px solid #e3e8ee; }
-    .feature-tile { background: #f6f9ff; border-left: 4px solid #1976d2; }
-    .month-tile { background: #f9fbe7; border-left: 4px solid #cddc39; }
-    .callout-info { 
-      background: #ffffff;
-      border-left: 4px solid #0055d4; 
-      padding: 1.2em; 
-      border-radius: 8px;
-      box-shadow: 0 2px 12px rgba(0,85,212,0.08);
-    }
-    .callout-warning { background: #fff8e1; border-left: 4px solid #ff9800; padding: 1em; border-radius: 8px; }
-    .callout-success { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 1em; border-radius: 8px; }
-    .callout-highlight { background: #f3e8fd; border-left: 4px solid #9c27b0; padding: 1em; border-radius: 8px; }
-    .progress-bar { background: #eee; border-radius: 8px; margin: 1em 0; height: 24px; width: 100%; }
-    .progress { background: #2196f3; color: #fff; height: 100%; border-radius: 8px; text-align: center; line-height: 24px; font-weight: bold; }
-    .collapsible-header { cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; }
-    .collapsible-arrow { font-size: 1.2em; margin-left: 0.5em; transition: transform 0.2s; }
-    .collapsible-tile { margin-bottom: 1.5em; }
-    .executive-summary {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 3px 12px rgba(0,85,212,0.08);
-      border-left: 5px solid #0055d4;
-      overflow: hidden;
-      margin-top: 0.5em;
-    }
-    .summary-row {
-      display: flex;
-      align-items: flex-start;
-      padding: 1.2em 1.5em;
-      border-bottom: 1px solid rgba(0,85,212,0.08);
-    }
-    .summary-row:last-child {
-      border-bottom: none;
-    }
-    .summary-label {
-      flex: 0 0 140px;
-      font-weight: 700;
-      color: #0055d4;
-      text-transform: uppercase;
-      font-size: 0.75em;
-      letter-spacing: 0.06em;
-      padding-top: 0.25em;
-    }
-    .summary-highlight {
-      background: #e6eeff;
-      color: #002b6b;
-      font-weight: 600;
-      padding: 0.15em 0.5em;
-      border-radius: 4px;
-      margin-right: 0.5em;
-      display: inline-block;
-      font-size: 0.95em;
-      white-space: nowrap;
-    }
-    .summary-row-content {
-      flex: 1;
-      min-width: 0;
-    }
-    .summary-row b {
-      font-weight: 600;
-      color: #002b6b;
-    }
-    @media (max-width: 700px) {
-      .summary-row {
-        flex-direction: column;
-        padding: 1em 1.2em;
-      }
-      .summary-label {
-        flex: none;
-        padding-top: 0;
-        margin-bottom: 0.4em;
-      }
-      .summary-highlight {
-        margin-bottom: 0.3em;
-      }
-    }
-    @media (max-width: 900px) {
-      .subtile-section { flex-direction: column; gap: 1em; }
-      .main-container { padding: 1.2rem 0.5rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive PoC Plan | KubeShiftDynamics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Cool Tech" - A clean palette using slate grays, pure white, and a vibrant indigo accent for a modern, professional tech aesthetic. -->
+    <!-- Application Structure Plan: The application is structured as a narrative journey through the PoC plan. It begins with the high-level "Core Question" to set the context. It then breaks down the "Big Idea" into three digestible, interactive component cards. The centerpiece is the interactive 2-month timeline, allowing users to toggle between phases to see detailed tasks and a dynamic chart showing the effort distribution. This structure turns a static timeline into an explorable plan, making it easier for stakeholders to grasp the focus and deliverables of each phase. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: The core components of the solution (Cost Engine, AI, GitOps). Goal: Clarify the architecture. Viz: Three distinct HTML/CSS cards with icons. Interaction: Subtle hover effects to draw attention. Justification: More engaging and scannable than a paragraph of text.
+        - Report Info: The 2-month plan details. Goal: Show phased execution. Viz: An interactive tabbed section for the timeline. Interaction: Clicking "Month 1" or "Month 2" updates the task list and a companion Chart.js doughnut chart. Justification: Allows users to focus on one phase at a time while visually understanding the shift in work focus (e.g., from foundational work to AI integration).
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .tab-btn.active { background-color: #4f46e5; color: #ffffff; }
+        .tab-btn { transition: all 0.2s ease-in-out; }
+        .chart-container { position: relative; width: 100%; max-width: 300px; margin-left: auto; margin-right: auto; height: 300px; max-height: 40vh; }
+        .task-list li, .criteria-list li { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%234f46e5'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd' /%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 0 5px; background-size: 1.25em; padding-left: 1.75em; }
+        .content-fade { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .flow-step { border-left: 3px solid #e2e8f0; }
+        .flow-step:hover { border-left-color: #4f46e5; }
+    </style>
 </head>
-<body>
-  <div class="main-container">
-    <h1>PoC Plan: GitOps-Native Kubernetes Cost Optimization</h1>
-    <div class="tile-section">
-      <div class="tile-shadow">
-        <div class="section-title">💼 1. Executive Summary (The Investor's Lens)</div>
-        <div class="executive-summary">
-          <div class="summary-row">
-            <span class="summary-label">Market Size:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">$10B+</span> Kubernetes cost optimization market
+<body class="antialiased">
+    <div class="main-container max-w-5xl mx-auto my-8 md:my-12 p-6 md:p-10 bg-white rounded-2xl shadow-xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-2">PoC Plan: AI Agent Model</h1>
+            <p class="text-lg text-indigo-600 font-semibold">Autonomous IaC Modification with Tool Use</p>
+        </header>
+
+        <section id="core-question" class="mb-12 bg-slate-50 border border-slate-200 p-8 rounded-xl text-center">
+            <h2 class="text-xl font-bold text-slate-700 mb-2">The PoC's Core Question</h2>
+            <p class="text-2xl font-semibold text-slate-800 leading-tight">Can an AI Agent, given a set of tools, autonomously navigate a Git repository, identify the correct file, and modify it to create a valid Pull Request?</p>
+        </section>
+        
+        <section id="big-idea" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Core Agent Components</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="p-6 rounded-lg border border-slate-200 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-3">🛠️</div>
+                    <h3 class="font-bold text-lg mb-2">1. AI Agent with Tools</h3>
+                    <p class="text-sm text-slate-600">The core of the system is an LLM given access to tools like `list_files`, `read_file`, and `write_file` to interact with the repository.</p>
+                </div>
+                <div class="p-6 rounded-lg border border-slate-200 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-3">🔁</div>
+                    <h3 class="font-bold text-lg mb-2">2. Orchestration Loop</h3>
+                    <p class="text-sm text-slate-600">The Python script orchestrates a conversation, executing the tool functions the AI calls for and feeding the results back to the AI.</p>
+                </div>
+                <div class="p-6 rounded-lg border border-slate-200 hover:shadow-lg transition-shadow">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h3 class="font-bold text-lg mb-2">3. Automated Pull Request</h3>
+                    <p class="text-sm text-slate-600">Once the AI determines the modification is complete, the script uses the GitHub API to commit the changes and open a PR.</p>
+                </div>
             </div>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">The Problem:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">Last-mile implementation gap</span> — Most tools identify savings but <b>fail to automate the actual changes</b> leaving DevOps teams with manual, error-prone work and lost ROI.
+        </section>
+
+        <section id="architecture-flow" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Detailed Architecture & Interaction Flow</h2>
+            <div class="bg-slate-50 p-6 md:p-8 rounded-xl border border-slate-200">
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-slate-700 mb-4">Component Roles</h3>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Operator (CLI):</strong> Initiates the process.</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm"><strong>PoC Script (Orchestrator):</strong> Executes tool calls from the AI.</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm"><strong>AI Agent (Gemini API):</strong> The "brain" that decides which tools to use to achieve its goal.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-slate-700 mb-4">Agent Interaction Loop</h3>
+                    <div class="space-y-4">
+                        <div class="flow-step p-4 transition"><strong>Step 1: Initialization.</strong> The `Operator` runs the `PoC Script`, providing the high-level goal from `recommendation.json`. The script clones the repo.</div>
+                        <div class="flow-step p-4 transition"><strong>Step 2: Initial Prompt.</strong> The script asks the `AI Agent`: "Based on this goal and these available tools (`list_files`, `read_file`, `write_file`), what is your first step?"</div>
+                        <div class="flow-step p-4 transition"><strong>Step 3: AI Tool Call.</strong> The `AI Agent` responds with a request to call a function, e.g., `list_files(directory='/')`.</div>
+                        <div class="flow-step p-4 transition"><strong>Step 4: Script Execution.</strong> The `PoC Script` executes the `list_files` command on the local filesystem and captures the output (the list of files).</div>
+                        <div class="flow-step p-4 transition"><strong>Step 5: Feedback Loop.</strong> The script sends the function's output back to the `AI Agent` and asks, "Here is the result. What is your next step?"</div>
+                        <div class="flow-step p-4 transition"><strong>Step 6: Iteration.</strong> Steps 3-5 repeat. The AI might now ask to `read_file('infra/nodes.tf')`. The script executes this, returns the file content, and the loop continues until the AI has all necessary information.</div>
+                        <div class="flow-step p-4 transition"><strong>Step 7: Final Action.</strong> The AI eventually generates the final, modified code and requests a `write_file` call. After this succeeds, it signals that its task is complete.</div>
+                        <div class="flow-step p-4 transition"><strong>Step 8: Git Automation.</strong> The `PoC Script` breaks the loop and proceeds to use the `GitHub API` to create a new branch, commit the change, and open a pull request.</div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">Our Solution:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">AI-driven, autonomous cost optimization</span> — <b>Find, Localize, and safely Implement</b> PoC proves an AI engine can find, localize, and safely implement savings by creating pull requests directly in the customer's existing GitOps workflow.
+        </section>
+
+        <section id="poc-input" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">PoC Input: The `recommendation.json` File</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-8">The script is driven by a `recommendation.json` file. This file provides the **high-level goal** for the AI, crucially **without a file path**, forcing the AI to perform the discovery task.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg text-slate-700 mb-2 text-center">Example 1: Terraform Node Sizing</h3>
+                    <pre class="bg-slate-800 text-white text-sm rounded-lg p-4 overflow-x-auto"><code>{
+  "type": "terraform",
+  "resource_type": "aws_eks_node_group",
+  "resource_name": "general_purpose_nodes",
+  "parameter_to_change": "instance_types",
+  "new_value": ["t3.large"],
+  "commit_message": "feat(rightsizing): Update node group to t3.large"
+}</code></pre>
+                </div>
+                 <div>
+                    <h3 class="font-bold text-lg text-slate-700 mb-2 text-center">Example 2: Helm Application Sizing</h3>
+                    <pre class="bg-slate-800 text-white text-sm rounded-lg p-4 overflow-x-auto"><code>{
+  "type": "helm",
+  "application_name": "my-app",
+  "parameter_path": "replica.resources.requests.cpu",
+  "new_value": "250m",
+  "commit_message": "feat(rightsizing): Adjust my-app CPU request"
+}
+
+</code></pre>
+                </div>
             </div>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">Key Differentiator:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">AI that understands any repo</span> — Navigates any Git repository structure, finds the right files, and makes precise, reviewable changes. <b>No vendor lock-in.</b>
+        </section>
+
+        <section id="timeline" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Phased Execution Plan</h2>
+            
+            <div class="flex justify-center mb-8">
+                <div class="flex space-x-1 bg-slate-100 p-1 rounded-full">
+                    <button class="tab-btn px-6 py-2 text-sm font-semibold rounded-full active" data-phase="1">Phase 1</button>
+                    <button class="tab-btn px-6 py-2 text-sm font-semibold rounded-full" data-phase="2">Phase 2</button>
+                </div>
             </div>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">PoC Goal:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">De-risk the hardest technical challenge</span> — Prove we can automate the end-to-end workflow for a sophisticated, high-value market segment.
+
+            <div id="timeline-content" class="grid lg:grid-cols-2 gap-8 items-center bg-slate-50 p-12 rounded-xl border border-slate-200">
+                <div id="phase-details" class="content-fade">
+                    <h3 id="phase-title" class="text-2xl font-bold text-slate-800 mb-4"></h3>
+                    <ul id="phase-tasks" class="task-list space-y-3 text-slate-700">
+                    </ul>
+                </div>
+                <div class="chart-container content-fade">
+                    <canvas id="focusChart"></canvas>
+                    <div id="chart-title" class="text-center mt-4 text-lg font-bold text-slate-700"></div>
+                </div>
             </div>
-          </div>
-          <div class="summary-row">
-            <span class="summary-label">Commercial Impact:</span>
-            <div class="summary-row-content">
-              <span class="summary-highlight">Clear path to product-market fit</span> — A successful PoC demonstrates tangible cost savings and operational efficiency, unlocking a large commercial opportunity.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tile-shadow">
-        <div class="section-title">🎯 2. Strategic Rationale & Product Vision (The Product Owner's Lens)</div>
-        <div class="subtile callout-warning"><b>The Problem</b><br>DevOps and FinOps teams know they are overspending on Kubernetes. Existing tools give them a "what to fix" list, but the "how to fix" is a manual, error-prone process of updating Infrastructure-as-Code (IaC) files, which slows them down or fully autonomous and introduces drifts and risk.</div>
-        <div class="subtile callout-success"><b>Our Vision</b><br>To create an intelligent, trusted co-pilot for cloud infrastructure management that makes cost optimization a safe, autonomous, and zero-effort process.</div>
-        <div class="subtile">
-          <b>Why Our PoC Features Matter</b>
-          <div class="subtile-section">
-            <div class="subtile feature-tile"><b>Target the Biggest Spenders First (Workloads & Nodes)</b><br>We focus on workload right-sizing and node instance optimization because they represent the largest and most common sources of cloud waste. A win here delivers immediate, high-impact value.</div>
-            <div class="subtile feature-tile"><b>Speak the Market's Language (Terraform & Helm)</b><br>By supporting the de facto standards for IaC, we ensure our MVP is relevant to a broad, existing user base from day one.</div>
-            <div class="subtile feature-tile"><b>The AI is Our "Magic"</b><br>Our core value proposition is not the recommendation, but the automated implementation. The AI's ability to navigate any repository structure is what makes our solution unique and scalable, eliminating the need for complex, per-customer configuration. Hence no vendor lockins, and customers are free to continue using their choice of GitOps toolings.</div>
-            <div class="subtile feature-tile"><b>Pull Requests Build Trust</b><br>We intentionally do not touch live infrastructure. By creating a pull request, we integrate seamlessly and safely into the user's existing review and deployment process (GitOps) and this builds trust and lowers the barrier to adoption. This approach is especially valuable for enterprise-grade companies with strict audit, compliance, and change management requirements. Every change is reviewable, traceable, and fully auditable, supporting robust change management and compliance. It enables organizations to maintain operational sanity and meet the highest standards for production change control.
-            </div>
-          </div>
-        </div>
-        <div class="subtile callout-highlight">
-          <b>PoC Success Criteria</b>
-          <ul>
-            <li>Successfully connect to a test EKS cluster and generate at least one valid workload and one valid node optimization recommendation.</li>
-            <li>Successfully scan three different GitHub repositories with varying directory structures.</li>
-            <li>For a given recommendation, automatically identify and modify the correct Terraform/Helm file in each of the three test repositories.</li>
-            <li>Successfully generate a well-formed GitHub Pull Request for each modification, with a clear description of the proposed change.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tile-shadow collapsible-tile" id="tile3">
-        <div class="section-title collapsible-header">🛠️ 3. Technical Plan & Architecture (The Developer's Lens)
-          <span class="collapsible-arrow">&#9654;</span>
-        </div>
-        <div class="collapsible-content" style="display:none;">
-          <div class="subtile callout-info"><b>Objective</b><br>Build a lean, functional MVP that proves the end-to-end workflow is technically feasible. The focus is on proving the core AI-driven modification logic, not on building a polished, scalable UI.</div>
-          <div class="subtile">
-            <b>Proposed Tech Stack</b>
-            <ul>
-              <li><b>Backend:</b> Python with FastAPI (excellent for ML/AI integration and rapid API development).</li>
-              <li><b>AI/ML:</b> Utilize a combination of rule-based parsers (hcl-parser for Terraform, pyyaml for Helm) and a Large Language Model (LLM) for semantic understanding and code generation/modification.</li>
-              <li><b>Database:</b> PostgreSQL (for storing cluster/repo info and recommendations).</li>
-              <li><b>Frontend:</b> Minimalist UI using React with basic components. The goal is functionality, not aesthetics, for the PoC.</li>
-              <li><b>Cloud:</b> AWS for EKS connection and hosting the service itself.</li>
-            </ul>
-          </div>
-          <div class="subtile">
-            <b>High-Level Architecture Flow</b>
-            <ol>
-              <li><b>Connect:</b> User provides Kubeconfig/IAM credentials and a GitHub repository URL.</li>
-              <li><b>Analyze:</b> A backend service connects to the EKS API and Prometheus to gather metrics. It analyzes this data to generate optimization recommendations (e.g., "Change ng-main-app instance type to t4g.large").</li>
-              <li><b>Localize & Modify (The AI Core):</b>
-                <ul>
-                  <li>The service clones the specified GitHub repo.</li>
-                  <li>It recursively scans the repo, looking for .tf and values.yaml files.</li>
-                  <li>The AI engine uses a combination of file content analysis and the recommendation context (e.g., the resource name ng-main-app) to identify the target file(s).</li>
-                  <li>It parses the file to locate and programmatically update the specific attribute (instance_type = "m5.large") and similarly for applications values.yaml files with recommended new resource requests.</li>
+        </section>
+        
+        <section id="success-criteria" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Clear Success Criteria</h2>
+            <div class="bg-indigo-600 text-white p-8 rounded-xl shadow-lg">
+                <ul class="criteria-list space-y-3 font-medium">
+                    <li style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 20 20\' fill=\'%23ffffff\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\' clip-rule=\'evenodd\' /%3E%3C/svg%3E');">The agent successfully navigates the repo and identifies the correct file to modify.</li>
+                    <li style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 20 20\' fill=\'%23ffffff\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\' clip-rule=\'evenodd\' /%3E%3C/svg%3E');">A new, open pull request is successfully created in the target GitHub repository.</li>
+                    <li style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 20 20\' fill=\'%23ffffff\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\' clip-rule=\'evenodd\' /%3E%3C/svg%3E');">The PR's diff shows ONLY the intended change and contains no other incorrect modifications.</li>
                 </ul>
-              </li>
-              <li><b>Propose:</b> The service uses the GitHub API to create a new branch, commit the change, and open a Pull Request.</li>
-              <li><b>Display:</b> The UI updates to show the reasoning behind the change and a link to the open PR.</li>
-            </ol>
-          </div>
-          <div class="subtile">
-            <b>Month-by-Month Task Breakdown</b>
-            <div class="subtile-section">
-              <div class="subtile month-tile">
-                <b>Month 1 (Foundational Analysis)</b>
-                <ul>
-                  <li><b>Week 1-2:</b> Set up backend service, database, and secure EKS connection logic. Develop the core analysis engine to poll metrics and generate JSON-based recommendations for both workloads and nodes.</li>
-                  <li><b>Week 3-4:</b> Build the minimalist React UI for cluster/repo registration. Create the API endpoints to serve recommendations to the frontend.</li>
-                </ul>
-              </div>
-              <div class="subtile month-tile">
-                <b>Month 2 (AI GitOps Integration)</b>
-                <ul>
-                  <li><b>Week 5-6:</b> Focus entirely on the "Localize & Modify" logic. Implement the repo scanning, file identification, and code modification engine for Terraform first. This is the hardest part.</li>
-                  <li><b>Week 7:</b> Integrate the GitHub API to automate the Pull Request creation.</li>
-                  <li><b>Week 8:</b> Extend the modification logic to support Helm values.yaml files. Final integration, testing, and documentation for the PoC demo.</li>
-                </ul>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="tile-shadow collapsible-tile" id="tile4">
-        <div class="section-title collapsible-header">🚦 4. High-Level Scope & Phased Approach
-          <span class="collapsible-arrow">&#9654;</span>
-        </div>
-        <div class="collapsible-content" style="display:none;">
-          <div class="subtile-section">
-            <div class="subtile month-tile">
-              <b>Month 1: Foundational Analysis & Recommendation Engine</b>
-              <ul>
-                <li><b>Single Cloud Provider Focus:</b> Amazon EKS.</li>
-                <li><b>Secure Cluster Connection:</b> Via kubeconfig or IAM roles.</li>
-                <li><b>Core Analysis Service:</b> For workload and node optimization.</li>
-                <li><b>Simple Recommendation Engine:</b> Generate clear, actionable recommendations.</li>
-                <li><b>Basic API & Data Storage:</b> PostgreSQL and a simple REST API.</li>
-                <li><b>Minimalist Dashboard UI:</b> To register clusters and view recommendations.</li>
-              </ul>
+        </section>
+
+        <section id="next-steps">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Next Steps & Extended PoC: The Recommendation Engine</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-8">This PoC validates the **"How"**: the agent's ability to execute a change. The next logical step is to automate the **"What" and "Why"** by integrating a recommendation source.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-50 border border-slate-200 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-slate-700 mb-2">Path A: Integrate Open-Source Engine</h3>
+                    <p class="text-sm text-slate-600 mb-4">The fastest path to an end-to-end solution. A new "Adapter" component will query the Kubecost or OpenCost API, translating its output into our standard `recommendation.json` format for the agent to use.</p>
+                    <ul class="text-sm space-y-1">
+                        <li>✅ Leverages a battle-tested engine.</li>
+                        <li>✅ Grounded in real cluster metrics.</li>
+                        <li>✅ Demonstrates full pipeline value quickly.</li>
+                    </ul>
+                </div>
+                 <div class="bg-slate-50 border border-slate-200 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg text-slate-700 mb-2">Path B: Custom AI Model</h3>
+                    <p class="text-sm text-slate-600 mb-4">A more advanced, flexible approach. We would build a custom AI model that analyzes raw metrics (e.g., from Prometheus) and directly generates the `recommendation.json` file.</p>
+                     <ul class="text-sm space-y-1">
+                        <li>✅ Full control over recommendation logic.</li>
+                        <li>✅ No need for a separate adapter.</li>
+                        <li>❌ Requires significant R&D effort.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="subtile month-tile">
-              <b>Month 2: The "Magic" - AI-Powered GitOps Integration</b>
-              <ul>
-                <li><b>Git Repository Integration:</b> GitHub.</li>
-                <li><b>AI-Powered IaC Discovery and Modification:</b> The core innovation. Recursively scan, automatically identify, and pinpoint/modify code in Terraform and Helm files.</li>
-                <li><b>Automated Pull Request (PR) Creation:</b> The key output of the system.</li>
-                <li><b>UI Enhancements for GitOps:</b> A simple button to trigger the process and a link to the result.</li>
-              </ul>
+            <div class="mt-8 text-center text-sm text-slate-600 bg-amber-100/60 border border-amber-200 p-4 rounded-md">
+                <strong>Note:</strong> The recommended next step is **Path A** to validate the complete end-to-end workflow. **Path B** represents a powerful long-term vision to be explored after the initial integration is proven.
             </div>
-          </div>
-        </div>
-      </div>
+        </section>
+
     </div>
-  </div>
-  <script>
-    // Collapsible tile logic for tiles 3 and 4
-    (function() {
-      function toggleTile(tile) {
-        var content = tile.querySelector('.collapsible-content');
-        var arrow = tile.querySelector('.collapsible-arrow');
-        if (content.style.display === 'none') {
-          content.style.display = 'block';
-          arrow.innerHTML = '\u25BC'; // ▼
-        } else {
-          content.style.display = 'none';
-          arrow.innerHTML = '\u25B6'; // ▶
-        }
-      }
-      document.querySelectorAll('.collapsible-tile').forEach(function(tile) {
-        var header = tile.querySelector('.collapsible-header');
-        header.addEventListener('click', function() {
-          toggleTile(tile);
+
+    <footer class="text-center p-8 text-slate-500 text-sm">
+        <p>This document outlines a simplified Proof of Concept plan and does not represent a commitment to build.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const timelineData = {
+                '1': {
+                    title: "Agent & Tool Definition",
+                    tasks: [
+                        "Define the 'tools' for the AI as Python functions (e.g., `list_files`, `read_file`).",
+                        "Structure the initial prompt to inform the AI of its goal and available tools.",
+                        "Implement the main orchestration loop that sends prompts and processes AI responses.",
+                        "Handle the AI's first few tool calls, like listing directories and reading a file."
+                    ],
+                    chartData: {
+                        labels: ["Agent Logic", "Tool Functions"],
+                        values: [60, 40],
+                        colors: ["#6366f1", "#a5b4fc"],
+                        title: "Focus: Agent Orchestration"
+                    }
+                },
+                '2': {
+                    title: 'Final Action & Git Automation',
+                    tasks: [
+                        "Implement the `write_file` tool to allow the AI to save its changes.",
+                        "Enable the AI to signal when its task is complete, breaking the loop.",
+                        "Integrate the GitHub API client within the script.",
+                        "Code the final sequence: create branch, commit, push, and create pull request."
+                    ],
+                    chartData: {
+                        labels: ["Git Automation", "Agent Finalization"],
+                        values: [70, 30],
+                        colors: ["#4f46e5", "#c7d2fe"],
+                        title: "Focus: GitOps & Completion"
+                    }
+                }
+            };
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const phaseTitleEl = document.getElementById('phase-title');
+            const phaseTasksEl = document.getElementById('phase-tasks');
+            const phaseDetailsEl = document.getElementById('phase-details');
+            const chartContainerEl = document.querySelector('.chart-container');
+            const chartTitleEl = document.getElementById('chart-title');
+
+            let focusChart;
+
+            function createOrUpdateChart(data) {
+                const chartCtx = document.getElementById('focusChart').getContext('2d');
+                if (focusChart) {
+                    focusChart.data.labels = data.labels;
+                    focusChart.data.datasets[0].data = data.values;
+                    focusChart.data.datasets[0].backgroundColor = data.colors;
+                    focusChart.update();
+                } else {
+                    focusChart = new Chart(chartCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                data: data.values,
+                                backgroundColor: data.colors,
+                                borderWidth: 4,
+                                borderColor: '#f8fafc'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '70%',
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            return `${context.label}: ${context.raw}%`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                chartTitleEl.textContent = data.title;
+            }
+
+            function updateTimelineContent(phase) {
+                const data = timelineData[phase];
+                
+                phaseDetailsEl.classList.remove('content-fade');
+                chartContainerEl.classList.remove('content-fade');
+                
+                void phaseDetailsEl.offsetWidth; 
+
+                phaseTitleEl.textContent = `Phase ${phase}: ${data.title}`;
+                phaseTasksEl.innerHTML = data.tasks.map(task => `<li>${task}</li>`).join('');
+                createOrUpdateChart(data.chartData);
+
+                phaseDetailsEl.classList.add('content-fade');
+                chartContainerEl.classList.add('content-fade');
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    updateTimelineContent(button.dataset.phase);
+                });
+            });
+
+            updateTimelineContent('1');
         });
-      });
-    })();
-  </script>
+    </script>
 </body>
 </html>
